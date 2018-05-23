@@ -32,4 +32,4 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
 #### 参考自
 1. [https://my.oschina.net/tommyfok/blog/202412](https://my.oschina.net/tommyfok/blog/202412)
-2. [https://my.oschina.net/tommyfok/blog/202412](https://my.oschina.net/tommyfok/blog/202412)
+2. [http://www.sharejs.com/js/math/170](http://www.sharejs.com/js/math/170)
