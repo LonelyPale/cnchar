@@ -41,9 +41,12 @@
     
     <!--download-->
     <div id="downloadPart" class="bg-dark text-white part">
-      <div class="part-title hassmall">下载</div>
-      <div class="part-title small">引用： &lt;script src="https://www.theajack.com/cnchar/assets/js/cnchar.min.js"&gt;&lt;/script&gt;</div>
-      <div id="copyBtn" class="border-btn" onclick="J.open('assets/js/cnchar.min.js')">或点击复制源码</div>
+      <div class="part-title hassmall mb-install">安装使用</div>
+      <div class="part-title small font-size-bigger">1.script 标签方式引入</div>
+      <div class="part-title small">引用： &lt;script src="https://www.theajack.com/cnchar/cnchar.min.js"&gt;&lt;/script&gt;</div>
+      <div id="copyBtn" class="border-btn mb-install" onclick="J.open('cnchar.min.js')">或点击复制源码</div>
+      <div class="part-title small font-size-bigger">2.npm 方式安装</div>
+      <div class="part-title small">npm install cnchar</div>
     </div>
     <!--api-->
     <div id="apiPart" class="bg-gray part clearfix">
@@ -138,23 +141,27 @@
         <span class="split-icon d-hide">|</span>
         
         Email:theajack@qq.com
+        <span class="split-icon d-hide">|</span>
+        <span class="link d-hide" onclick="J.open('https://www.theajack.com')">theajack.com</span>
         <div class=" d-show">
           <span class="wechat-public" onclick="this.child(0).fadeToggle()">
             WeChat Official Accounts
             <img class="wechat-img" src="assets/images/wechat_qrcode.jpg"/>
           </span>
+          <span class="split-icon">|</span>
+          <span class="link" onclick="J.open('https://www.theajack.com')">theajack.com</span>
         </div>
       </div>
       <div id="copyright">
-        <span class="glyphicon glyphicon-copyright-mark"></span> 2017 TheaJack All rights reserved
+        <span class="glyphicon glyphicon-copyright-mark"></span> <span id='_year'>20xx</span> TheaJack All rights reserved
       </div>
     </div>
     <script src="https://www.theajack.com/jetterjs/assets/js/jetter.min.js"></script>
-    <script src="assets/js/cnchar.min.js"></script>
+    <script src="assets/js/cnchar.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="https://www.theajack.com/assets/js/logo.js"></script>
     <script src="https://www.theajack.com/assets/js/log.js"></script>
     <script src="https://www.theajack.com/assets/js/link.js"></script>
-    <script type="text/javascript" name="cnchar.js" src="https://www.theajack.com/assets/js/stat.js"></script>
+    <!--<script type="text/javascript" name="cnchar.js" src="https://www.theajack.com/assets/js/stat.js"></script>-->
   </body>
 </html>

@@ -187,4 +187,7 @@
   String.prototype.stroke=function(){
     return _stroke(this);
   };
+  if(typeof module!=='undefined'&&module.exports){
+    module.exports=CnChar;
+  }
 })()

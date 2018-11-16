@@ -4,4 +4,5 @@ J.ready(function(){
     "获取一个或多个汉字拼音首字母",
     "获取一个或多个汉字的总笔画数"
   ]);
+  J.id('_year').txt((new Date()).getFullYear())
 });
