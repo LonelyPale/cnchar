@@ -1,8 +1,8 @@
 # [cnchar](https://github.com/theajack/cnchar)
-####[theajack](https://www.theajack.com/)
+#### [theajack](https://www.theajack.com/)
 ### 获取汉字笔画数和拼音的js库
 [api详细文档地址](https://www.theajack.com/cnchar/)
-####安装使用
+#### 安装
 1.使用 npm 安装
 
 `npm install cnchar`
@@ -11,7 +11,7 @@
 
 `<script src="https://www.theajack.com/cnchar/cnchar.min.js"></script>`
 
-####安装使用
+#### 使用
 cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
 它只有三个方法，是基于String的原型链扩展的
