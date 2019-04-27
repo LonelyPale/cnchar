@@ -19,7 +19,13 @@
       <div id="title">cnchar.js</div>
       <div id="smallTitle">获取汉字的拼音和笔画数的js库</div>
       <div id="viewProject" class="border-btn" onclick="J.open('https://github.com/theajack/cnchar')">View project on github</div>
-      
+      <div>
+        <input placeholder="请输入汉字尝试一下" id='tryInput' type="text">
+      </div>
+      <div id='tryResult'>
+        <div id='spell'></div>
+        <div id='stroke'></div>
+      </div>
     </div>
     <!--intro-->
     <div id="introPart" class="bg-gray text-black part clearfix">
@@ -37,16 +43,15 @@
         <div class="func-text">笔画数</div>
       </div>
     </div>
-		
-    
     <!--download-->
     <div id="downloadPart" class="bg-dark text-white part">
       <div class="part-title hassmall mb-install">安装使用</div>
       <div class="part-title small font-size-bigger">1.script 标签方式引入</div>
       <div class="part-title small">引用： &lt;script src="https://www.theajack.com/cnchar/cnchar.min.js"&gt;&lt;/script&gt;</div>
-      <div id="copyBtn" class="border-btn mb-install" onclick="J.open('cnchar.min.js')">或点击复制源码</div>
       <div class="part-title small font-size-bigger">2.npm 方式安装</div>
-      <div class="part-title small">npm install cnchar</div>
+      <div class="part-title small">安装: npm install cnchar</div>
+      <div class="part-title small">使用: import CnChar from 'cnchar' 或 const CnChar = require('cnchar')</div>
+      <div id="copyBtn" class="border-btn mb-install" onclick="J.open('cnchar.min.js')">或点击复制源码</div>
     </div>
     <!--api-->
     <div id="apiPart" class="bg-gray part clearfix">
@@ -55,7 +60,6 @@
         <div class="api-item-title">.spell()</div>
         <div class="api-item-text">获取汉字完整拼音</div>
         <div class="api-content-wrapper">
-          <div class="api-item-ltitle">如何使用</div>
           <div class="api-content clearfix">
             "测试".spell()
             <span class="api-content-result" onclick="this.txt('测试'.spell())">查看</span>
@@ -68,7 +72,14 @@
             "测试".spell("low")
             <span class="api-content-result" onclick="this.txt('测试'.spell('low'))">查看</span>
           </div>
-          <div class="api-item-text">'upper','lower'都合法;不区分大小写</div>
+          <div class="api-content clearfix">
+            "测试".spell("array")
+            <span class="api-content-result" onclick="this.txt('测试'.spell('array'))">查看</span>
+          </div>
+          <div class="api-content clearfix">
+            "测试".spell("array","up")
+            <span class="api-content-result" onclick="this.txt('测试'.spell('array','up'))">查看</span>
+          </div>
           <div class="api-item-text">非汉字会返回原字符串</div>
         </div>
         <div class="api-test-wrapper">
@@ -78,26 +89,28 @@
         </div>
       </div>
       <div class="api-item">
-        <div class="api-item-title">.spellFirst()</div>
+        <div class="api-item-title">.spell('first')</div>
         <div class="api-item-text">获取汉字拼音首字母</div>
         <div class="api-content-wrapper">
-          <div class="api-item-ltitle">如何使用</div>
           <div class="api-content clearfix">
-            "测试".spellFirst()
-            <span class="api-content-result" onclick="this.txt('测试'.spellFirst())">查看</span>
+            "测试".spell('first')
+            <span class="api-content-result" onclick="this.txt('测试'.spell('first'))">查看</span>
           </div>
           <div class="api-content clearfix">
-            "测试".spellFirst("low")
-            <span class="api-content-result" onclick="this.txt('测试'.spellFirst('low'))">查看</span>
+            "测试".spell('first','low')
+            <span class="api-content-result" onclick="this.txt('测试'.spell('first','low'))">查看</span>
+          </div>
+          <div class="api-content clearfix">
+            "测试".spell("array",'first',"up")
+            <span class="api-content-result" onclick="this.txt('测试'.spell('array','first','up'))">查看</span>
           </div>
           <div style="height:1px"></div>
-          <div class="api-item-text">'lower'合法;不区分大小写</div>
           <div class="api-item-text">非汉字会返回原字符串</div>
         </div>
         <div class="api-test-wrapper">
           <div class="api-item-ltitle">尝试一下</div>
           <input type="text" class="api-test-input" placeholder="请输入汉字"/>
-          <span class="api-test-btn" onclick="this.prev().val(this.prev().val().spellFirst())">获取</span>
+          <span class="api-test-btn" onclick="this.prev().val(this.prev().val().spell('first'))">获取</span>
         </div>
       </div>
       <div class="api-item">
@@ -105,7 +118,7 @@
         <div class="api-item-text">获取汉字笔画数</div>
       
         <div class="api-content-wrapper">
-          <div class="api-item-ltitle">如何使用</div>
+          <!-- <div class="api-item-ltitle">如何使用</div> -->
           <div class="api-content clearfix">
             "测试".stroke()
             <span class="api-content-result" onclick="this.txt('测试'.stroke())">查看</span>

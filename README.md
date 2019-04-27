@@ -14,24 +14,34 @@
 #### 使用
 cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
-它只有三个方法，是基于String的原型链扩展的
+它只有两个方法，是基于String的原型链扩展的
 
 + .spell()
 >该方法用于获取汉字完整拼音<br>
-接受一个可选参数，可以是up或low<br>
-"测试".spell() => CeShi<br>
-"测试".spell("up") => CESHI<br>
-"测试".spell("low") => ceshi<br>
-
-+ .spellFirst()
->该方法用于获取汉字拼音首字母<br>
-接受一个可选参数，只能选择不带参数或者为low<br>
-"测试".spellFirst() => CS<br>
-"测试".spellFirst("low") => cs<br>
+接受一个多个配置参数，这些参数可以组合使用<br>
+配置参数可选值如下：<br>
+array:返回数组<br>
+first:返回首字母<br>
+up:将结果全部大写<br>
+low:将结果全部小<br>
+示例：<br>
+"测试".spell() => 'CeShi'<br>
+"测试".spell("up") => 'CESHI'<br>
+"测试".spell("low") => 'ceshi'<br>
+"测试".spell("first") => 'CS'<br>
+"测试".spell("first","low") => 'cs'<br>
+"测试".spell("array") => ['Ce','Shi']<br>
+"测试".spell("array","first","low") => ['c','s']<br>
+备注：<br>
+1.该方法等价于 CnChar.spell(str,[args])<br>
+2.数字、字母和其他字符会返回原字符<br>
 
 + .stroke()
 >获取汉字笔画数<br>
 "测试".stroke() => 17<br>
+备注：<br>
+1.该方法等价于 CnChar.stroke(str)<br>
+2.数字、字母和其他字符的笔画数计为1<br>
 
 #### 使用示例
 [汉字打字游戏](https://www.theajack.com/type/)
