@@ -5,7 +5,14 @@
 #### 安装
 1.使用 npm 安装
 
+安装
 `npm install cnchar`
+
+使用
+import CnChar from 'cnchar';
+或
+const CnChar = require('cnchar');
+
 
 2.使用script标签
 
