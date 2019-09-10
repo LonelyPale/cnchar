@@ -30,7 +30,9 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
 #### 2-1 .spell()
 该方法用于获取汉字完整拼音
+
 接受一个多个配置参数，这些参数可以组合使用
+
 配置参数可选值如下：
 
 |参数|作用|
@@ -41,6 +43,7 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 |low|将结果全部小|
 
 示例：
+
 ```
 "测试".spell() // 返回 'CeShi'
 "测试".spell("up") // 返回 'CESHI'
@@ -53,8 +56,11 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 // 使用CnChar调用
 CnChar.spell("测试","array","first","low) // 返回 ['c','s']
 ```
+
 备注：
+
 1.该方法等价于 `CnChar.spell(str,...args)`
+
 2.数字、字母和其他字符会返回原字符
 
 #### 2-2 .stroke()
@@ -68,6 +74,7 @@ CnChar.spell("测试","array","first","low) // 返回 ['c','s']
 // 使用CnChar调用
 CnChar.stroke(str) // 返回 17
 ```
+
 备注：
 
 1.该方法等价于 `CnChar.stroke(str)`
@@ -75,6 +82,7 @@ CnChar.stroke(str) // 返回 17
 2.数字、字母和其他字符的笔画数计为 1
 
 ### 3 使用示例
+
 [汉字打字游戏](https://www.theajack.com/type/)
 
 ### 4 不足之处
