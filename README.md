@@ -3,52 +3,74 @@
 ### 获取汉字笔画数和拼音的js库
 [api详细文档地址](https://www.theajack.com/cnchar/)
 #### 安装
-1.使用 npm 安装
+##### 1.使用 npm 安装
 
 安装
 `npm install cnchar`
 
 使用
+
+```
 import CnChar from 'cnchar';
-或
+// 或
 const CnChar = require('cnchar');
+```
 
+##### 2.使用script标签
 
-2.使用script标签
+```
+<script src="https://www.theajack.com/cnchar/cnchar.min.js"></script>
+```
 
-`<script src="https://www.theajack.com/cnchar/cnchar.min.js"></script>`
 
 #### 使用
 cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
 它只有两个方法，是基于String的原型链扩展的
 
-+ .spell()
->该方法用于获取汉字完整拼音<br>
-接受一个多个配置参数，这些参数可以组合使用<br>
-配置参数可选值如下：<br>
-array:返回数组<br>
-first:返回首字母<br>
-up:将结果全部大写<br>
-low:将结果全部小<br>
-示例：<br>
-"测试".spell() => 'CeShi'<br>
-"测试".spell("up") => 'CESHI'<br>
-"测试".spell("low") => 'ceshi'<br>
-"测试".spell("first") => 'CS'<br>
-"测试".spell("first","low") => 'cs'<br>
-"测试".spell("array") => ['Ce','Shi']<br>
-"测试".spell("array","first","low") => ['c','s']<br>
-备注：<br>
-1.该方法等价于 CnChar.spell(str,[args])<br>
-2.数字、字母和其他字符会返回原字符<br>
+##### 1 .spell()
+该方法用于获取汉字完整拼音
+接受一个多个配置参数，这些参数可以组合使用
+配置参数可选值如下：
 
-+ .stroke()
->获取汉字笔画数<br>
-"测试".stroke() => 17<br>
-备注：<br>
-1.该方法等价于 CnChar.stroke(str)<br>
-2.数字、字母和其他字符的笔画数计为1<br>
+|参数|作用|
+|:--:|:--:|
+|array|返回数组|
+|first|返回首字母|
+|up|将结果全部大写|
+|low|将结果全部小|
+
+示例：
+```
+"测试".spell() // 返回 'CeShi'
+"测试".spell("up") // 返回 'CESHI'
+"测试".spell("low") // 返回 'ceshi'
+"测试".spell("first") // 返回 'CS'
+"测试".spell("first","low") // 返回 'cs'
+"测试".spell("array") // 返回 ['Ce','Shi']
+"测试".spell("array","first","low") // 返回 ['c','s']
+
+// 使用CnChar调用
+CnChar.spell("测试","array","first","low) // 返回 ['c','s']
+```
+备注：
+1.该方法等价于 `CnChar.spell(str,...args)`
+2.数字、字母和其他字符会返回原字符
+
+##### 2 .stroke()
+获取汉字笔画数
+
+```
+"测".stroke() // 返回 9
+"测试".stroke() // 返回 17
+"abc12".stroke() // 返回 5
+
+// 使用CnChar调用
+CnChar.stroke(str) // 返回 17
+```
+备注：
+1.该方法等价于 `CnChar.stroke(str)`
+2.数字、字母和其他字符的笔画数计为 1
 
 #### 使用示例
 [汉字打字游戏](https://www.theajack.com/type/)
