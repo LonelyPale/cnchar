@@ -2,8 +2,8 @@
 #### [theajack](https://www.theajack.com/)
 ### 获取汉字笔画数和拼音的js库
 [api详细文档地址](https://www.theajack.com/cnchar/)
-#### 安装
-##### 1.使用 npm 安装
+### 1 安装
+#### 1-1 使用 npm 安装
 
 安装
 `npm install cnchar`
@@ -16,19 +16,19 @@ import CnChar from 'cnchar';
 const CnChar = require('cnchar');
 ```
 
-##### 2.使用script标签
+#### 1-2 使用script标签
 
 ```
 <script src="https://www.theajack.com/cnchar/cnchar.min.js"></script>
 ```
 
 
-#### 使用
+### 2 使用
 cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 
 它只有两个方法，是基于String的原型链扩展的
 
-##### 1 .spell()
+#### 2-1 .spell()
 该方法用于获取汉字完整拼音
 接受一个多个配置参数，这些参数可以组合使用
 配置参数可选值如下：
@@ -57,7 +57,7 @@ CnChar.spell("测试","array","first","low) // 返回 ['c','s']
 1.该方法等价于 `CnChar.spell(str,...args)`
 2.数字、字母和其他字符会返回原字符
 
-##### 2 .stroke()
+#### 2-2 .stroke()
 获取汉字笔画数
 
 ```
@@ -69,14 +69,18 @@ CnChar.spell("测试","array","first","low) // 返回 ['c','s']
 CnChar.stroke(str) // 返回 17
 ```
 备注：
+
 1.该方法等价于 `CnChar.stroke(str)`
+
 2.数字、字母和其他字符的笔画数计为 1
 
-#### 使用示例
+### 3 使用示例
 [汉字打字游戏](https://www.theajack.com/type/)
 
-#### 不足之处
+### 4 不足之处
+
 1. 暂不支持对多音字的处理
+
 2. 对某些极其生僻的字也无法查到
 
 #### 参考自
