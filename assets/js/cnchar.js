@@ -120,7 +120,7 @@
     var num=0;
     for(var i=0;i<str.length;i++){
       for(var j=1;j<_charstr.length;j++){
-        if(_charstr[j].indexOf(str.charAt(i))>0){
+        if(_charstr[j].indexOf(str.charAt(i))!==-1){
           num+=j;
           break;
         }
