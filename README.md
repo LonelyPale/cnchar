@@ -90,7 +90,3 @@ CnChar.stroke(str) // 返回 17
 1. 暂不支持对多音字的处理
 
 2. 对某些极其生僻的字也无法查到
-
-#### 参考自
-1. [https://my.oschina.net/tommyfok/blog/202412](https://my.oschina.net/tommyfok/blog/202412)
-2. [http://www.sharejs.com/js/math/170](http://www.sharejs.com/js/math/170)
