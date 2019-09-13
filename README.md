@@ -54,7 +54,7 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 "测试".spell("array","first","low") // 返回 ['c','s']
 
 // 使用CnChar调用
-CnChar.spell("测试","array","first","low) // 返回 ['c','s']
+CnChar.spell("测试","array","first","low") // 返回 ['c','s']
 ```
 
 备注：
