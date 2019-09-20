@@ -30,7 +30,7 @@ cnchar是一个简单小巧的专注于汉字笔画数和拼音的js库
 array:返回数组<br>
 first:返回首字母<br>
 up:将结果全部大写<br>
-low:将结果全部小<br>
+low:将结果全部小写<br>
 示例：<br>
 "测试".spell() => 'CeShi'<br>
 "测试".spell("up") => 'CESHI'<br>
