@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var rename = require('gulp-rename');
+// var rename = require('gulp-rename');
 var fs = require('fs');
 let version = require('./version.json').version;
 let files = [
@@ -28,32 +28,16 @@ function modVersion(){
 function task(){
     modVersion();
 
-    gulp.src('dist/cnchar.'+version+'.min.js')
-        .pipe(rename(function(path){
-            path.basename ='index';
-            path.extname = ".js";
-        }))
+    gulp.src('src/main/*.js')
         .pipe(gulp.dest('npm/cnchar'))
-    
-    gulp.src('dist/cnchar.order.'+version+'.min.js')
-        .pipe(rename(function(path){
-            path.basename ='index';
-            path.extname = ".js";
-        }))
+
+    gulp.src('src/plugin/order/*.js')
         .pipe(gulp.dest('npm/order'))
-            
-    gulp.src('dist/cnchar.poly.'+version+'.min.js')
-        .pipe(rename(function(path){
-            path.basename ='index';
-            path.extname = ".js";
-        }))
+
+    gulp.src('src/plugin/poly/*.js')
         .pipe(gulp.dest('npm/poly'))
-        
-    gulp.src('dist/cnchar.trad.'+version+'.min.js')
-        .pipe(rename(function(path){
-            path.basename ='index';
-            path.extname = ".js";
-        }))
+
+    gulp.src('src/plugin/trad/*.js')
         .pipe(gulp.dest('npm/trad'))
 }
 task();

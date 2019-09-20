@@ -17,8 +17,11 @@ function init(){
         return _stroke(this,...args);
     }
 }
-// function use(){
-// }
+function use(initPlugin){
+    if(typeof initPlugin === 'function'){
+        initPlugin(cnchar);
+    }
+}
 init();
 
 let cnchar = {
@@ -29,7 +32,8 @@ let cnchar = {
         spell:_spell,
         stroke:_stroke,
     },
-    // use,
+    _plugins:[],
+    use,
     _:{arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar,checkArgs},
     type:{
         spell:arg,

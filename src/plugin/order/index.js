@@ -5,35 +5,48 @@ let _ = {};// 工具方法
 let arg = {
     letter:'letter',shape:'shape',count:'count',name:'name',detail:'detail',array:'array',order:'order' // array 只是为了兼容 .stroke()
 }
-function init(){
+
+function main(cnchar){
+    if(cnchar._plugins.indexOf('order')!==-1){
+        return;
+    }
+    cnchar._plugins.push('order');
+    let _old = cnchar._origin.stroke;
+    _ = cnchar._;
+    let _new = function(...args){
+        if(_.has(args,arg.order)){ // 使用order
+            return _order(...args);
+        }
+        return _old(...args)
+    }
+    cnchar.stroke = _new;
+    String.prototype.stroke = function(...args){
+        return _new(this,...args);
+    }
+    cnchar.type.stroke = arg;
+    cnchar._.order = true;
+    cnchar._.orderWithLetters = orderWithLetters;
+    if(cnchar._reinitStrokeOrder){
+        cnchar._reinitStrokeOrder();
+        delete cnchar._reinitStrokeOrder;
+    }
+}
+
+function init(cnchar){
     if(window && window.CnChar){
-        let _old = CnChar._origin.stroke;
-        _ = CnChar._;
-        let _new = function(...args){
-            if(_.has(args,arg.order)){ // 使用order
-                return _order(...args);
-            }
-            return _old(...args)
-        }
-        CnChar.stroke = _new;
-        String.prototype.stroke = function(...args){
-            return _new(this,...args);
-        }
-        CnChar.type.stroke = arg;
-        CnChar._.order = true;
-        CnChar._.orderWithLetters = orderWithLetters;
-        if(CnChar._reinitStrokeOrder){
-            CnChar._reinitStrokeOrder();
-            delete CnChar._reinitStrokeOrder;
-        }
-    }else{
-        _._throw('必须先引入 cnchar: npm i cnchar')
+        main(window.CnChar)
+    }else if(typeof cnchar!=='undefined'){
+        main(cnchar)
+    }else {
+        // _._throw('必须先引入 cnchar: npm i cnchar')
+        console.warn('请先引用 cnchar 或使用 cnchar.use() 加载order插件')
     }
 }
 
 function _order(...args){
     let strs = args[0].split(''); // 待处理的字符串数组
     args = args.splice(1);
+    _.checkArgs('stroke',args);
     // 多音字参数参数将被忽略
     let res = [];
     for(var i=0;i<strs.length;i++){
@@ -42,12 +55,13 @@ function _order(...args){
     return orderWithLetters(res,strs,args);
 }
 // res:字母版笔画数组
-function orderWithLetters(res,strs,args){
+function orderWithLetters(res,strs,args,igList){
+    igList = igList || [];
     if(_.has(args,arg.letter)){
         return res;
     }
     for(var i=0;i<res.length;i++){
-        if(typeof res[i] !== 'object'){
+        if(igList.indexOf(i)===-1 && typeof res[i] === 'string'){
             res[i] = getStrokeSingle(strs[i],res[i],args)
         }
     }
@@ -59,7 +73,7 @@ function getStrokeSingle(str,order,args){
         return str;
     }
     var isDetail = _.has(args,arg.detail);
-    let name = arg.shape;
+    let name = arg.letter;
     if(!isDetail){
         if(_.has(args,arg.shape)){
             name = arg.shape;
@@ -69,7 +83,6 @@ function getStrokeSingle(str,order,args){
             name = arg.count;
         }
     }
-    debugger
     if(name === arg.count){
         return order.length;
     }
@@ -85,3 +98,5 @@ function getStrokeSingle(str,order,args){
 }
 
 init();
+
+export default init;

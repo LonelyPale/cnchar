@@ -27,7 +27,6 @@ export function has(args, name){
 export function spell(dict,args){
     let strs = args[0].split('');
     args = args.splice(1);
-    checkArgs('spell',args)
     let poly = has(args,arg.poly);
     let tone = has(args,arg.tone);
     let res = [];
@@ -161,7 +160,6 @@ function setTone(spell,index,tone){
 export function stroke (dict,args){
     let strs = args[0].split('');
     args = args.splice(1);
-    checkArgs('stroke',args)
     for(var i=0;i<dict.length;i++){
         for(let j=0;j<strs.length;j++){
             if(typeof strs[j]==='string'){
@@ -194,14 +192,8 @@ export function sumStroke (strs){
 //  origin 禁用多音词
 
 // stroke 所有参数 ["letter", "shape", "count", "name", "detail", "array", "order", "simple"]
-// 
-var _hasCheck = false;
-export function checkArgs(type,args,jumpNext){
-    if(_hasCheck){
-        _hasCheck = false;
-        return;
-    }
-    if(jumpNext){ _hasCheck = true; }
+//  
+export function checkArgs(type,args){
     var useless = [];
     var t = window.cnchar.type;
     for(var i = args.length-1;i>=0;i--){
@@ -214,12 +206,6 @@ export function checkArgs(type,args,jumpNext){
     var ignore = []
     var redunt = [];
     var check = (name,arr)=>{
-        if(typeof name==='object'){
-            name.forEach((item)=>{
-                check(item,arr);
-            })
-            return;
-        }
         arr = arr || ignore
         if(has(args,name)){ arr.push(name); }
     }
@@ -227,35 +213,19 @@ export function checkArgs(type,args,jumpNext){
         if(has(args,'up') && has(args,'low')){
             ignore.push('low');
         }
-        // t.spell.origin 表示启用了多音词
-        // !has(args,'origin') 表示没有禁用多音词
-        // 此时的 poly 就会被忽略
-        if(t.spell.origin && !has(args,'origin') && has(args,'poly')){ 
+        if(t.spell.origin && !has(args,'origin') && has(args,'poly')){ // t.spell.origin 表示启用了多音词
             ignore.push('poly');
         }
     } else { // stroke
         if(has(args,'order')){ // 笔画顺序模式
             check('array',redunt);
-            // detail > shape > name > count > letter 默认值是 letter
-            if(has(args,'detail')){
-                check(['shape','name','count','letter'])
-            }else if(has(args,'shape')){
-                check(['name','count','letter'])
-            }else if(has(args,'name')){
-                check(['count','letter'])
-            }else if(has(args,'count')){
-                check('letter')
-            }
+            
         }else{ // 笔画数模式
-            check(['detail','shape','name','letter'])
+            check('letter')
+            check('shape')
+            check('name')
             check('count',redunt)
+            check('detail')
         }
     }
-    warnArgs(useless,'无效');
-    warnArgs(ignore,'被忽略');
-    warnArgs(redunt,'冗余');
-}
-function warnArgs(arr,txt){
-    if(arr.length>0)
-        _wran(`以下参数${txt}:${JSON.stringify(arr)}`)
 }

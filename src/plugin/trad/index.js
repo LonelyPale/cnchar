@@ -7,30 +7,42 @@ let arg = {
 }
 let _ = {};// 工具方法
 
-function init(){
+function main(cnchar){
+    if(cnchar._plugins.indexOf('trad')!==-1){
+        return;
+    }
+    cnchar._plugins.push('trad');
+    cnchar.convert = convert;
+    let _p = String.prototype;
+    cnchar.type.spell.simple = arg.simple;
+    cnchar.type.stroke.simple = arg.simple;
+    reinitSpell(_p, cnchar);
+    reinitStroke(_p, cnchar);
+    _p.convertSimpleToTrad = function(){return convert.simpleToTrad(this);}
+    _p.convertSimpleToSpark = function(){return convert.simpleToSpark(this);}
+    _p.convertTradToSimple = function(){return convert.tradToSimple(this);}
+    _p.convertTradToSpark = function(){return convert.tradToSpark(this);}
+    _p.convertSparkToSimple = function(){return convert.sparkToSimple(this);}
+    _p.convertSparkToTrad = function(){return convert.sparkToTrad(this);}
+    _p.convertToTrad = function(){return convert.toTrad(this);}
+    _p.convertToSimple = function(){return convert.toSimple(this);}
+    _p.convertToSpark = function(){return convert.toSpark(this);}
+    _ = cnchar._;
+}
+
+function init(cnchar){
     if(window && window.CnChar){
-        CnChar.convert = convert;
-        let _p = String.prototype;
-        CnChar.type.spell.simple = arg.simple;
-        CnChar.type.stroke.simple = arg.simple;
-        reinitSpell(_p);
-        reinitStroke(_p);
-        _p.convertSimpleToTrad = function(){return convert.simpleToTrad(this);}
-        _p.convertSimpleToSpark = function(){return convert.simpleToSpark(this);}
-        _p.convertTradToSimple = function(){return convert.tradToSimple(this);}
-        _p.convertTradToSpark = function(){return convert.tradToSpark(this);}
-        _p.convertSparkToSimple = function(){return convert.sparkToSimple(this);}
-        _p.convertSparkToTrad = function(){return convert.sparkToTrad(this);}
-        _p.convertToTrad = function(){return convert.toTrad(this);}
-        _p.convertToSimple = function(){return convert.toSimple(this);}
-        _p.convertToSpark = function(){return convert.toSpark(this);}
-        _ = CnChar._;
-    }else{
-        _._throw('必须先引入 cnchar: npm i cnchar')
+        main(window.CnChar)
+    }else if(typeof cnchar!=='undefined'){
+        main(cnchar)
+    }else {
+        // _._throw('必须先引入 cnchar: npm i cnchar')
+        console.warn('请先引用 cnchar 或使用 cnchar.use() 加载trad插件')
     }
 }
-function reinitSpell (proto){
-    let _spell = CnChar.spell;
+
+function reinitSpell (proto, cnchar){
+    let _spell = cnchar.spell;
     let newSpell = function(...args){
         let str = args[0];
         args = args.splice(1);
@@ -40,25 +52,26 @@ function reinitSpell (proto){
         return _spell(str,...args);
     }
     proto.spell = function(...args){
-        return newSpell(_spell,this,...args);
+        return newSpell(this,...args);
     }
-    CnChar.spell = function(...args){return newSpell(_spell,...args)};
-    if(!CnChar._.poly){
-        CnChar._reinitSpellPoly = function(){
-            _spell = CnChar.spell;
+    cnchar.spell = function(...args){return newSpell(...args)};
+    if(!cnchar._.poly){
+        cnchar._reinitSpellPoly = function(){
+            _spell = cnchar.spell;
             proto.spell = function(...args){
                 return newSpell(this,...args);
             }
-            CnChar.spell = function(...args){return newSpell(...args)};
+            cnchar.spell = function(...args){return newSpell(...args)};
         };;
     }
 }
 
-function reinitStroke(proto){
-    let _stroke = CnChar.stroke;
+function reinitStroke(proto, cnchar){
+    let _stroke = cnchar.stroke;
     let _new = function(...args){
         let str = args[0];
         args = args.splice(1);
+        _.checkArgs('stroke',args,true);
         let isArr = _.has(args,arg.array)
         let isOrder = _.has(args,arg.order)
         if(!isArr){args.push(arg.array);}// 先使用array模式
@@ -79,29 +92,33 @@ function reinitStroke(proto){
             if(_.has(args,arg.simple)){ // 启用简单模式则 直接返回
                 return res;
             } else { // 将其中的繁体字获取 strokeOrder
+                let igList = []
                 for(var i=0;i<res.length;i++){
-                    if(typeof res[i] === 'string'){
+                    if(typeof res[i] === 'undefined'){
                         res[i] = orderDict[str[i]] // 字母版笔画表
+                    }else{
+                        igList.push(i);
                     }
                 }
-                return _.orderWithLetters(res,str,args);
+                return _.orderWithLetters(res,str,args,igList);
             }
         }
     }
     proto.stroke = function(...args){
         return _new(this,...args);
     }
-    CnChar.stroke = function(...args){return _new(...args)};
-    if(!CnChar._.order){
-        CnChar._reinitStrokeOrder = function(){
-            _stroke = CnChar.stroke;
+    cnchar.stroke = function(...args){return _new(...args)};
+    if(!cnchar._.order){
+        cnchar._reinitStrokeOrder = function(){
+            _stroke = cnchar.stroke;
             proto.stroke = function(...args){
                 return _new(this,...args);
             }
-            CnChar.stroke = function(...args){return _new(...args)};
+            cnchar.stroke = function(...args){return _new(...args)};
         };;
     }
 }
 
 
 init();
+export default init;
