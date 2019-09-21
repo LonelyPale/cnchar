@@ -1,4 +1,4 @@
-import polyPhrases from './polyphone-phrase-simple.json'
+var polyPhrases = require('./polyphone-phrase-simple.json')
 
 let _ = {};// 工具方法
 
@@ -35,10 +35,10 @@ function _poly(...args){
 }
 
 function main(cnchar){
-    if(cnchar._plugins.indexOf('poly')!==-1){
+    if(cnchar.plugins.indexOf('poly')!==-1){
         return;
     }
-    cnchar._plugins.push('poly');
+    cnchar.plugins.push('poly');
     _spell = cnchar._origin.spell;
     _ = cnchar._;
     var _new = function(...args){
@@ -60,16 +60,12 @@ function main(cnchar){
 }
 
 function init(cnchar){
-    if(window && window.CnChar){
+    if(typeof window==='object' && window.CnChar){
         main(window.CnChar)
     }else if(typeof cnchar!=='undefined'){
         main(cnchar)
-    }else {
-        // _._throw('必须先引入 cnchar: npm i cnchar')
-        console.warn('请先引用 cnchar 或使用 cnchar.use() 加载poly插件')
     }
 }
 
-
 init();
-export default init;
+module.exports = init;

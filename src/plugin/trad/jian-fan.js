@@ -7,13 +7,17 @@ const dist = {
 
 const type = {trad:'trad',simple:'simple',spark:'spark'};
 
-export function convert(str,to,from){
-    if(typeof type[to] === 'undefined'){
-        throw new Error('转换类型错误：'+to)
+function convert(str,to,from){
+    if(typeof to === 'undefined' || !type[to]){
+        throw new Error('convert 参数类型错误： to='+to);
+    }
+    if(typeof from !== 'undefined' && !type[from]){
+        throw new Error('convert 参数类型错误： from='+from);
     }
     let res = '';
     let toDict = dist[to];
-    if(typeof from === 'string' && type[from]){
+    // 都有指定
+    if(typeof from === 'string' && typeof to === 'string' && type[from]){
         let fromDict = dist[from];
         for(var i=0;i<str.length;i++){
             let index = fromDict.indexOf(str[i])
@@ -50,3 +54,5 @@ convert.sparkToTrad = function(str){return convert(str,type.trad,type.spark)}
 convert.toTrad = function(str){return convert(str,type.trad)}
 convert.toSpark = function(str){return convert(str,type.spark)}
 convert.toSimple = function(str){return convert(str,type.simple)}
+
+module.exports = convert;

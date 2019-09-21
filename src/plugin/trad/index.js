@@ -1,23 +1,24 @@
-import countDict from './stroke-count-fan.json'
-import orderDict from './stroke-order-fan.json'
+var countDict = require( './stroke-count-fan.json')
+var orderDict = require( './stroke-order-fan.json')
 
-import {convert} from './jian-fan'
+var convert = require( './jian-fan')
 let arg = {
     simple:'simple',array:'array',order:'order' // 开启简单模式
 }
 let _ = {};// 工具方法
 
 function main(cnchar){
-    if(cnchar._plugins.indexOf('trad')!==-1){
+    if(cnchar.plugins.indexOf('trad')!==-1){
         return;
     }
-    cnchar._plugins.push('trad');
+    cnchar.plugins.push('trad');
     cnchar.convert = convert;
     let _p = String.prototype;
     cnchar.type.spell.simple = arg.simple;
     cnchar.type.stroke.simple = arg.simple;
     reinitSpell(_p, cnchar);
     reinitStroke(_p, cnchar);
+    _p.convert = function(to,from){return convert(this,to,from);} 
     _p.convertSimpleToTrad = function(){return convert.simpleToTrad(this);}
     _p.convertSimpleToSpark = function(){return convert.simpleToSpark(this);}
     _p.convertTradToSimple = function(){return convert.tradToSimple(this);}
@@ -31,13 +32,10 @@ function main(cnchar){
 }
 
 function init(cnchar){
-    if(window && window.CnChar){
+    if(typeof window==='object' && window.CnChar){
         main(window.CnChar)
     }else if(typeof cnchar!=='undefined'){
         main(cnchar)
-    }else {
-        // _._throw('必须先引入 cnchar: npm i cnchar')
-        console.warn('请先引用 cnchar 或使用 cnchar.use() 加载trad插件')
     }
 }
 
@@ -121,4 +119,4 @@ function reinitStroke(proto, cnchar){
 
 
 init();
-export default init;
+module.exports = init;

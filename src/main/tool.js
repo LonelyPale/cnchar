@@ -1,13 +1,13 @@
 
 const tones   = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ'
 const noTones = 'aoeiuü'
-export function _throw(err){
+function _throw(err){
     throw new Error('CnChar Error:'+err)
 }
-export function _wran(err){
+function _wran(err){
     console.warn('CnChar Warning:'+err)
 }
-export let arg = {
+var arg = {
     array:'array',
     low:'low',
     up:'up',
@@ -15,16 +15,21 @@ export let arg = {
     poly:'poly',
     tone:'tone',
 }
-export function isCnChar(word){
+var _cnchar = null;
+function initCnchar(cnchar){
+    _cnchar = cnchar;
+}
+
+function isCnChar(word){
     let unicode = word.charCodeAt(0);
     return unicode >= 19968 && unicode <= 40869;
 }
 
-export function has(args, name){
+function has(args, name){
     return args.indexOf(name) !== -1;
 }
 
-export function spell(dict,args){
+function spell(dict,args){
     let strs = args[0].split('');
     args = args.splice(1);
     checkArgs('spell',args)
@@ -79,7 +84,12 @@ export function spell(dict,args){
     return res;
 }
 
-export function dealUpLowFirst(res,args){
+function dealUpLowFirst(res,args){
+    if(_cnchar._.poly){
+        dealResCase(res,low);
+        // 当启用了 多音词时 需要强制默认小写
+        // 因为会被覆盖
+    }
     if(has(args,arg.first)){
         dealResCase(res,first)
     }
@@ -134,7 +144,7 @@ function getSpell(spell, str, index, isPoly, isTone, pos){
     return res;
 }
 
-export function removeTone(str,tone){
+function removeTone(str,tone){
     if(tone){
         return str;
     }
@@ -156,9 +166,8 @@ function setTone(spell,index,tone){
 }
 
 
-
 // 笔画数
-export function stroke (dict,args){
+function stroke(dict,args){
     let strs = args[0].split('');
     args = args.splice(1);
     checkArgs('stroke',args)
@@ -181,7 +190,7 @@ export function stroke (dict,args){
     }
     return strs;
 }
-export function sumStroke (strs){
+function sumStroke(strs){
     let sum = 0;
     strs.forEach(function(c){
         sum+=c;
@@ -196,14 +205,17 @@ export function sumStroke (strs){
 // stroke 所有参数 ["letter", "shape", "count", "name", "detail", "array", "order", "simple"]
 // 
 var _hasCheck = false;
-export function checkArgs(type,args,jumpNext){
+function checkArgs(type,args,jumpNext){
+    if(!_cnchar.check){
+        return;
+    }
     if(_hasCheck){
         _hasCheck = false;
         return;
     }
     if(jumpNext){ _hasCheck = true; }
     var useless = [];
-    var t = window.cnchar.type;
+    var t = _cnchar.type;
     for(var i = args.length-1;i>=0;i--){
         let arg = args[i]
         if(!t.spell[arg] && !t.stroke[arg]){
@@ -237,14 +249,15 @@ export function checkArgs(type,args,jumpNext){
         if(has(args,'order')){ // 笔画顺序模式
             check('array',redunt);
             // detail > shape > name > count > letter 默认值是 letter
-            if(has(args,'detail')){
-                check(['shape','name','count','letter'])
+            if(has(args,'letter')){
+                check(['detail','shape','name','count'])
+                check('letter',redunt);
+            }else if(has(args,'detail')){
+                check(['shape','name','count'])
             }else if(has(args,'shape')){
-                check(['name','count','letter'])
+                check(['name','count'])
             }else if(has(args,'name')){
-                check(['count','letter'])
-            }else if(has(args,'count')){
-                check('letter')
+                check(['count'])
             }
         }else{ // 笔画数模式
             check(['detail','shape','name','letter'])
@@ -258,4 +271,7 @@ export function checkArgs(type,args,jumpNext){
 function warnArgs(arr,txt){
     if(arr.length>0)
         _wran(`以下参数${txt}:${JSON.stringify(arr)}`)
+}
+module.exports = {
+    _throw,_wran,arg,isCnChar,has,spell,stroke,dealUpLowFirst,removeTone,sumStroke,checkArgs,initCnchar
 }

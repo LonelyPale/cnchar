@@ -1,5 +1,5 @@
-import orders from './stroke-order-jian.json'
-import strokeTable from './stroke-table.json'
+var orders = require('./stroke-order-jian.json')
+var strokeTable = require('./stroke-table.json')
 
 let _ = {};// 工具方法
 let arg = {
@@ -7,10 +7,10 @@ let arg = {
 }
 
 function main(cnchar){
-    if(cnchar._plugins.indexOf('order')!==-1){
+    if(cnchar.plugins.indexOf('order')!==-1){
         return;
     }
-    cnchar._plugins.push('order');
+    cnchar.plugins.push('order');
     let _old = cnchar._origin.stroke;
     _ = cnchar._;
     let _new = function(...args){
@@ -33,13 +33,10 @@ function main(cnchar){
 }
 
 function init(cnchar){
-    if(window && window.CnChar){
+    if(typeof window==='object' && window.CnChar){
         main(window.CnChar)
     }else if(typeof cnchar!=='undefined'){
         main(cnchar)
-    }else {
-        // _._throw('必须先引入 cnchar: npm i cnchar')
-        console.warn('请先引用 cnchar 或使用 cnchar.use() 加载order插件')
     }
 }
 
@@ -82,9 +79,14 @@ function getStrokeSingle(str,order,args){
         }else if(_.has(args,arg.count)){
             name = arg.count;
         }
+    }else{
+        name = arg.detail;
     }
     if(name === arg.count){
         return order.length;
+    }
+    if(name === arg.letter){
+        return order;
     }
     var arr = [];
     for(var i=0;i<order.length;i++){
@@ -99,4 +101,4 @@ function getStrokeSingle(str,order,args){
 
 init();
 
-export default init;
+module.exports = init;

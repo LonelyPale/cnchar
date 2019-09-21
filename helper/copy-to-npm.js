@@ -8,6 +8,8 @@ let files = [
     '../npm/poly/package.json',
     '../npm/trad/package.json',
     '../npm/cnchar/package.json',
+    '../npm/cnchar-all/package.json',
+    '../npm/hanzi-util/package.json',
     // '../npm/cncharorder/package.json',
     // '../npm/cncharpoly/package.json',
     // '../npm/cnchartrad/package.json',
@@ -28,16 +30,16 @@ function modVersion(){
 function task(){
     modVersion();
 
-    gulp.src('src/main/*.js')
+    gulp.src(['src/main/*.*','README.md','LICENSE'])
         .pipe(gulp.dest('npm/cnchar'))
 
-    gulp.src('src/plugin/order/*.js')
+    gulp.src(['src/plugin/order/*.*','README.md','LICENSE'])
         .pipe(gulp.dest('npm/order'))
 
-    gulp.src('src/plugin/poly/*.js')
+    gulp.src(['src/plugin/poly/*.*','README.md','LICENSE'])
         .pipe(gulp.dest('npm/poly'))
 
-    gulp.src('src/plugin/trad/*.js')
+    gulp.src(['src/plugin/trad/*.*','README.md','LICENSE'])
         .pipe(gulp.dest('npm/trad'))
 }
 task();
