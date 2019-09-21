@@ -17,7 +17,7 @@ import cnchar from 'cnchar';
 ```
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.0.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -62,10 +62,10 @@ npm i cnchar cnchar-poly cnchar-order cnchar-trad
 #### 3.2 使用 script 引入
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.0.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.1.min.js"></script>
 ```
 
 ### 4 使用
@@ -109,10 +109,10 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入js文件：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.0.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.0.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.1.min.js"></script>
 <script>
     console.log('汉字'.spell());// prototype 方式调用
     console.log(cnchar.spell('汉字'));// cnchar api 调用

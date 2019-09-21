@@ -15,7 +15,7 @@ J.ready(function(){
       J.id('trad').txt('')
       J.id('spark').txt('')
     }else{
-      J.id('spell').txt(str.spell('array','tow').join(' '))
+      J.id('spell').txt(str.spell('array','tone').join(' '))
       J.id('stroke').txt('共 '+str.stroke()+' 笔')
       J.id('strokeOrder').txt('笔画顺序：' + JSON.stringify(str.stroke('order','shape')).replace(/"/g,''))
       J.id('trad').txt('繁体字：'+str.convert('trad'))

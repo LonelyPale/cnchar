@@ -1,6 +1,6 @@
 
-const tones   = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ'
-const noTones = 'aoeiuü'
+const tones   = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜnńňǹ'
+const noTones = 'aoeiuün'
 function _throw(err){
     throw new Error('CnChar Error:'+err)
 }
