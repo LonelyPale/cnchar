@@ -10,14 +10,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8">
 
     <title>cnchar.js by theajack</title>
-    <link rel="icon" href="assets/images/icon.ico" type="image/x-icon"/>
+    <link rel="icon" href="assets/images/i.ico" type="image/x-icon"/>
     <link rel="stylesheet" type="text/css" href="assets/css/index.css"/>
   </head>
   <body>
     <!--header-->
     <div id="header">
       <div id="title">cnchar.js</div>
-      <div id="smallTitle">获取汉字的拼音和笔画数的js库</div>
+      <div id="smallTitle">好用小巧、功能全面的汉字繁体字拼音笔画js库</div>
       <div id="viewProject" class="border-btn" onclick="J.open('https://github.com/theajack/cnchar')">View project on github</div>
       <div>
         <input placeholder="请输入汉字尝试一下" id='tryInput' type="text">
@@ -25,33 +25,50 @@
       <div id='tryResult'>
         <div id='spell'></div>
         <div id='stroke'></div>
+        <div id='trad'></div>
+        <div id='spark'></div>
+        <div id='strokeOrder'></div>
       </div>
     </div>
     <!--intro-->
     <div id="introPart" class="bg-gray text-black part clearfix">
       <div class="part-title">功能</div>
       <div class="func-item">
-        <img class="func-img" src="assets/images/spell.png"/>
-        <div class="func-text">完整拼音</div>
+        <img class="func-img" src="assets/images/pin.png"/>
+        <div class="func-text">拼音|音调</div>
       </div>
       <div class="func-item">
-        <img class="func-img" src="assets/images/spell_first.png"/>
-        <div class="func-text">拼音首字母</div>
+        <img class="func-img" src="assets/images/duo.png"/>
+        <div class="func-text">多音字|词</div>
       </div>
       <div class="func-item">
-        <img class="func-img" src="assets/images/stroke.png"/>
-        <div class="func-text">笔画数</div>
+        <img class="func-img" src="assets/images/bi.png"/>
+        <div class="func-text">笔画数|笔序</div>
+      </div>
+      <div class="func-item">
+        <img class="func-img" src="assets/images/fan.png"/>
+        <div class="func-text">繁体字|火星文</div>
       </div>
     </div>
     <!--download-->
     <div id="downloadPart" class="bg-dark text-white part">
       <div class="part-title hassmall mb-install">安装使用</div>
-      <div class="part-title small font-size-bigger">1.script 标签方式引入</div>
+      <pre class='demo-code'>import cnchar from 'cnchar';
+'汉字'.spell();
+'汉字'.stroke();</pre>
+<pre class='demo-code'>&lt;script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.0.min.js">&lt;/script>
+&lt;script>
+    '汉字'.spell();
+    '汉字'.stroke();
+&lt;/script></pre>
+      <!-- <div class="part-title small font-size-bigger">1.script 标签方式引入</div>
       <div class="part-title small">引用： &lt;script src="https://www.theajack.com/cnchar/cnchar.min.js"&gt;&lt;/script&gt;</div>
       <div class="part-title small font-size-bigger">2.npm 方式安装</div>
       <div class="part-title small">安装: npm install cnchar</div>
-      <div class="part-title small">使用: import CnChar from 'cnchar' 或 const CnChar = require('cnchar')</div>
-      <div id="copyBtn" class="border-btn mb-install" onclick="J.open('cnchar.min.js')">或点击复制源码</div>
+      <div class="part-title small">使用: import CnChar from 'cnchar' 或 const CnChar = require('cnchar')</div> -->
+      <!-- <div id="copyBtn" class="border-btn mb-install" onclick="J.open('cnchar.2.0.0.min.js')">复制源码</div> -->
+      <div id="copyBtn" class="border-btn mb-install" onclick="J.open('https://github.com/theajack/cnchar#user-content-cnchar')">点我查看详细</div>
+    </div>
     </div>
     <!--api-->
     <div id="apiPart" class="bg-gray part clearfix">
@@ -170,10 +187,10 @@
       </div>
     </div>
     <script src="https://www.theajack.com/jetterjs/assets/js/jetter.min.js"></script>
-    <script src="dist/cnchar.1.0.7.min.js"></script>
-    <script src="dist/cnchar.order.1.0.7.min.js"></script>
-    <script src="dist/cnchar.poly.1.0.7.min.js"></script>
-    <script src="dist/cnchar.trad.1.0.7.min.js"></script>
+    <script src="dist/cnchar.2.0.0.min.js"></script>
+    <script src="dist/cnchar.order.2.0.0.min.js"></script>
+    <script src="dist/cnchar.poly.2.0.0.min.js"></script>
+    <script src="dist/cnchar.trad.2.0.0.min.js"></script>
     <script src="assets/js/index.js"></script>
     <script src="https://www.theajack.com/assets/js/logo.js"></script>
     <script src="https://www.theajack.com/assets/js/log.js"></script>

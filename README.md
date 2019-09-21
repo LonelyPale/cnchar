@@ -8,6 +8,21 @@
 [TOC]
 
 ----
+### 0.快速使用
+
+```js
+import cnchar from 'cnchar';
+'汉字'.spell();
+'汉字'.stroke();
+```
+
+```html
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.0.min.js"></script>
+<script>
+    '汉字'.spell();
+    '汉字'.stroke();
+</script>
+```
 
 ### 1.功能
 

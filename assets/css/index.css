@@ -752,18 +752,21 @@ a{
   padding: 20px;
   min-height:368px;
 }
+
 .api-item{
   transition:background-color .3s linear;
   -webkit-transition:background-color .3s linear;
 }
 .func-item{
   min-height:0px;
+  width: 23%;
   height:auto;
   text-align:center;
   background-color: transparent;
+  padding: 5px;
 }
 .func-img{
-  width: 60%;
+  width: 80%;
   border-radius: 10px;
   border: 2px solid #000;
 }
@@ -773,7 +776,7 @@ a{
 .func-text{
   font-weight: bold;
   margin-top: 10px;
-  font-size: 28px;
+  font-size: 23px;
   color:#222;
 }
 /*end function*/
@@ -886,8 +889,21 @@ a{
   color:#aaa;
 }
 
-.mb-install.part-title,.mb-install#copyBtn{
+.mb-install.part-title{
   margin-bottom: 30px;
+}
+.mb-install#copyBtn{
+  margin-bottom: 20px;
+}
+.demo-code{
+  font-family: Consolas, 'Courier New', monospace;
+  width: 330px;
+  margin: 0 auto;
+  background-color: #222;
+  padding: 10px;
+  border-radius: 3px;
+  margin-top: 5px;
+  overflow-x: auto;
 }
 .font-size-bigger.part-title{
   font-size: 25px;
@@ -905,13 +921,22 @@ a{
   background-color: #eee;
 }
 #tryResult{
-  min-height: 66px;
+  /* min-height: 66px; */
 }
 #spell{
   font-size: 23px;
 }
 #stroke{
-  padding-top:10px;
+  padding-top:5px;
+}
+#strokeOrder{
+  padding-top:5px;
+}
+#trad{
+  padding-top:5px;
+}
+#spark{
+  padding-top:5px;
 }
 /*end footer*/
 @media screen and (max-width:1000px) {
