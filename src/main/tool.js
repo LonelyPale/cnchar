@@ -1,6 +1,7 @@
 
 const tones   = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜnńňǹ'
 const noTones = 'aoeiuün'
+let defDict = require('./spell-default.json')
 function _throw(err){
     throw new Error('CnChar Error:'+err)
 }
@@ -58,6 +59,11 @@ function spell(dict,args){
                             res[i].push(getSpell(sp, dsNew, index, poly, tone, pos).res);
                         }
                     }else{
+                        if(ssp.isPolyWord){ // 是多音字 不是多音字模式
+                            if(defDict[ch]){ // 设置了多音字的默认拼音
+                                ssp.res = removeTone(defDict[ch],tone); // 默认有音调
+                            }
+                        }
                         res[i] = ssp.res
                         strs[i] = '';
                     }
@@ -128,11 +134,12 @@ function low(s){
 
 function getSpell(spell, str, index, isPoly, isTone, pos){
     let res = {res:spell,poly:false};
+    let tone = parseInt(str[index+1]);
+    res.isPolyWord = (tone >= 5);
     if(!isPoly && !isTone){
         return res;
     }
-    let tone = parseInt(str[index+1]);
-    if(tone >= 5){ // 是多音字
+    if(res.isPolyWord){ // 是多音字
         tone -= 5; // 正确的音调
         if(isPoly){ // 既是多音字模式 又是 多音字
             res.poly = true;
