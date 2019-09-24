@@ -42,5 +42,11 @@ function task(){
 
     gulp.src(['src/plugin/trad/*.*','README.md','LICENSE'])
         .pipe(gulp.dest('npm/trad'))
+
+    gulp.src(['README.md','LICENSE'])
+        .pipe(gulp.dest('npm/cnchar-all'))
+        .pipe(gulp.dest('npm/hanzi-util'))
+        .pipe(gulp.dest('npm/hanzi-util-base'))
+
 }
 task();

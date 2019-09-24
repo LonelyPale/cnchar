@@ -1,5 +1,6 @@
 var orders = require('./stroke-order-jian.json')
 var strokeTable = require('./stroke-table.json')
+var orderToWord = require('./orderToWord.js')
 
 let _ = {};// 工具方法
 let arg = {
@@ -30,6 +31,8 @@ function main(cnchar){
         cnchar._reinitStrokeOrder();
         delete cnchar._reinitStrokeOrder;
     }
+    // 初始化 orderToWord 方法
+    cnchar.orderToWord = orderToWord;
 }
 
 function init(cnchar){

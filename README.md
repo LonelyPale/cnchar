@@ -17,7 +17,7 @@ import cnchar from 'cnchar';
 ```
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.2.min.js"></script>
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -30,11 +30,11 @@ import cnchar from 'cnchar';
 2. 支持 **多音词**
 3. 支持 **拼音音调**
 4. 获取汉字 **笔画数** 、支持数组分割
-5. 获取汉字 **笔画顺序** 、笔画详细名称等
+5. 获取汉字 **笔画顺序** 、笔画详细名称、通过笔画顺序推出原汉字等
 6. 支持 **简体字** 、 **繁体字** 、 **火星文** 互转
 7. 支持 **繁体字** 拼音、笔画数，实现和简体字一样的功能
 8. **体积小**，最小压缩版本仅 42 kb
-9. **多端可用**，可用于 原生浏览器环境、webpack环境、nodejs环境...，几乎支持所有js能运行的环境
+9.  **多端可用**，可用于 原生浏览器环境、webpack环境、nodejs环境...，几乎支持所有js能运行的环境
 10. 丰富的配置，按需取用
 
 ### 2.概览
@@ -51,21 +51,33 @@ import cnchar from 'cnchar';
 ### 3 安装
 #### 3.1 使用 npm 安装
 
-安装四个库：
+安装基础库：
 
 ```
-npm i cnchar cnchar-poly cnchar-order cnchar-trad
+npm i cnchar
+```
+
+安装附加功能库：
+
+```
+npm i cnchar-poly cnchar-order cnchar-trad
 ```
 
 当然您也可以按需安装其中的几个，但是 `cnchar` 这个基础库是必须安装的
 
+或者您可以通过安装`cnchar-all`来使用完整功能，这个库引用了上面的四个库
+
+```
+npm i cnchar-all
+```
+
 #### 3.2 使用 script 引入
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.2.min.js"></script>
 ```
 
 ### 4 使用
@@ -109,10 +121,10 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入js文件：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.1.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.1.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.2.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.2.min.js"></script>
 <script>
     console.log('汉字'.spell());// prototype 方式调用
     console.log(cnchar.spell('汉字'));// cnchar api 调用
@@ -138,7 +150,7 @@ string.stroke([...args])
 
 该 api 设计一致，`string` 表示要处理的汉字字符串
 
-关键在于可选参数的配置，参数配置将在下一章单独介绍
+关键在于可选参数的配置，参数配置将在<a href="#user-content-6-spell-stroke-参数">第六章</a>单独介绍
 
 #### 5.2 繁体、简体、火星文互转
 
@@ -161,7 +173,6 @@ to和from的可选值有：`simple`,`trad`,`spark`
 除了 convert 方法以外，cnchar 还提供了一些衍生的方法可供使用：
 
 ```js
-string.convert(to[,from]);
 string.convertSimpleToTrad();
 string.convertSimpleToSpark();
 string.convertTradToSimple();
@@ -183,8 +194,36 @@ cnchar.convert.toSpark(string);
 cnchar.convert.toSimple(string);
 ```
 
-#### 5.3 其他api
-##### 5.3.1 .use()
+#### 5.3 笔画序列推出原汉字
+
+当引入 `cnchar-order` 功能库之后，cnchar 就支持了根据笔画名称序列推出原汉字的功能，使用方式如下：
+
+```js
+cnchar.orderToWord(orderNameArray[,matchAll]);
+```
+
+`orderNameArray` 是笔画名称序列，是一个数组，可用的笔画名称可以通过以下api查看
+
+```js
+var dict = cnchar.orderToWord.orders;
+```
+
+`matchAll` 表示是否需要匹配所有以该笔序开头的汉字
+
+以下是一个例子：
+
+```js
+cnchar.orderToWord(['横','撇','捺']);
+// 返回 ["丈", "大"]
+cnchar.orderToWord(['横','撇','捺'],true);
+// 返回 ["丈", "大", "太", "犬", "夯", "夸", "夺", "夼", "奁", "奄", "奈", "奋", "奔", "态", "奎", "耷", "套", "奢", "瓠", "鹩"]
+```
+
+如果输入的笔画不再 `cnchar.orderToWord.orders` 内，则该方法会打印一个错误提示哪些笔画有误，并返回一个空数组。
+
+
+#### 5.4 其他api
+##### 5.4.1 .use()
 
 这个api的功能是显式启用 `poly`、`order`、`trad` 三个功能库
 
@@ -213,7 +252,7 @@ import 'cnchar-order';
 import 'cnchar-trad';
 ```
 
-##### 5.3.3 .type
+##### 5.4.2 .type
 
 type对象用户获取当前可用的 `spell` 和 `stroke` 参数类型：
 
@@ -226,10 +265,10 @@ spellArg 最多可用值： `["array", "low", "up", "first", "poly", "tone", "si
 
 strokeArg 最多可用值：`["letter", "shape", "count", "name", "detail", "array", "order", "simple"]`
 
-具体用法第六章讲到
+具体用法<a href="#user-content-6-spell-stroke-参数">第六章</a>讲到
 
 
-##### 5.3.4 .check
+##### 5.4.3 .check
 
 该值是一个 布尔类型，用于控制是否开启参数校验，默认值为true
 
@@ -239,7 +278,7 @@ strokeArg 最多可用值：`["letter", "shape", "count", "name", "detail", "arr
 cnchar.check = false; // 关闭参数校验
 ```
 
-##### 5.3.5 .version
+##### 5.4.4 .version
 
 获取当前版本：
 
@@ -247,7 +286,7 @@ cnchar.check = false; // 关闭参数校验
 var version = cnchar.version; // string 类型
 ```
 
-##### 5.3.5 .plugins
+##### 5.4.5 .plugins
 
 当前使用的功能库列表，最多的情况为 `["order", "trad", "poly"]`
 
@@ -375,6 +414,16 @@ arg 参数信息如下：
 "一个".stroke('order','shape') // 返回 [["横"],["撇", "捺", "竖"]]
 "一个".stroke('order','name') // 返回 [["㇐"],["㇓","㇏","㇑"]]
 "一个".stroke('order','count') // 返回 [1, 3]
+```
+
+根据笔画名称序列推出原汉字
+
+```js
+var orders = cnchar.orderToWord.orders; //查看支持的笔画名称
+cnchar.orderToWord(['横','撇','捺']);
+// 返回 ["丈", "大"]
+cnchar.orderToWord(['横','撇','捺'],true);
+// 返回 ["丈", "大", "太", "犬", "夯", "夸", "夺", "夼", "奁", "奄", "奈", "奋", "奔", "态", "奎", "耷", "套", "奢", "瓠", "鹩"]
 ```
 
 ##### 6.3.4 cnchar-trad 库功能
