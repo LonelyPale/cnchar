@@ -196,7 +196,7 @@ cnchar.convert.toSimple(string);
 
 #### 5.3 笔画序列推出原汉字
 
-当引入 `cnchar-order` 功能库之后，cnchar 就支持了根据笔画名称序列推出原汉字的功能，使用方式如下：
+当引入 `cnchar-order` 功能库(版本2.0.2及以上)之后，cnchar 就支持了根据笔画名称序列推出原汉字的功能，使用方式如下：
 
 ```js
 cnchar.orderToWord(orderNameArray[,matchAll]);
@@ -208,7 +208,7 @@ cnchar.orderToWord(orderNameArray[,matchAll]);
 var dict = cnchar.orderToWord.orders;
 ```
 
-`matchAll` 表示是否需要匹配所有以该笔序开头的汉字
+`matchAll` 表示是否需要匹配所有以该笔序开头的汉字，默认值为false
 
 以下是一个例子：
 
@@ -219,8 +219,7 @@ cnchar.orderToWord(['横','撇','捺'],true);
 // 返回 ["丈", "大", "太", "犬", "夯", "夸", "夺", "夼", "奁", "奄", "奈", "奋", "奔", "态", "奎", "耷", "套", "奢", "瓠", "鹩"]
 ```
 
-如果输入的笔画不再 `cnchar.orderToWord.orders` 内，则该方法会打印一个错误提示哪些笔画有误，并返回一个空数组。
-
+如果输入的笔画不在 `cnchar.orderToWord.orders` 内，则该方法会打印一个错误提示哪些笔画有误，并返回一个空数组。
 
 #### 5.4 其他api
 ##### 5.4.1 .use()
