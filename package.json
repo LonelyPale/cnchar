@@ -1,16 +1,10 @@
 {
-    "name": "cnchar",
-    "version": "2.0.2",
-    "description": "好用小巧、功能全面的汉字拼音笔画js库，支持多音字、繁体字、火星文",
+    "name": "drone",
+    "version": "1.0.0",
+    "description": "",
     "main": "index.js",
     "scripts": {
         "build": "webpack --config webpack-config/build.js",
-        "build:poly": "webpack --config webpack-config/build.plugin.js --env.pluginname=poly",
-        "build:order": "webpack --config webpack-config/build.plugin.js --env.pluginname=order",
-        "build:trad": "webpack --config webpack-config/build.plugin.js --env.pluginname=trad",
-        "build:plugin": "npm run build:poly && npm run build:order && npm run build:trad",
-        "build:all": "npm run build && npm run build:plugin",
-        "build:npm": "node ./helper/copy-to-npm.js",
         "start": "webpack-dev-server --open --config webpack-config/dev.js"
     },
     "author": "",
