@@ -475,6 +475,7 @@ cnchar.orderToWord(['横','撇','捺'],true);
 "長大".stroke('order','shape','simple') // 返回 [undefined, ["㇐","㇓","㇏"]]
 ```
 
+
 ### 7 应用例子
 
 [汉字打字游戏](https://www.theajack.com/type/)
