@@ -1,7 +1,10 @@
 # [cnchar](https://github.com/theajack/cnchar)
 #### [theajack](https://www.theajack.com/)
 ### 好用小巧、功能全面的汉字拼音笔画js库
+
 [在线试用](https://www.theajack.com/cnchar/)
+
+应用: [汉字打字游戏](https://www.theajack.com/type/)
 
 ----
 
@@ -10,11 +13,18 @@
 ----
 ### 0.快速使用
 
+使用 npm 安装：
+```
+npm i cnchar
+```
+
 ```js
 import cnchar from 'cnchar';
 '汉字'.spell();
 '汉字'.stroke();
 ```
+
+使用 script 标签使用：
 
 ```html
 <script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.2.min.js"></script>
