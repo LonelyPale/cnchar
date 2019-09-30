@@ -924,6 +924,11 @@ a{
   text-align: center;
   background-color: #eee;
 }
+#tryInput.unloaded{
+  color: #fff;
+  background-color: transparent;
+  border-color: transparent;
+}
 #tryResult{
   /* min-height: 66px; */
 }
@@ -976,6 +981,9 @@ a{
     margin-top: 10px;
     padding: 7px;
     border-width: 2px;
+  }
+  #viewProjectLink{
+    text-decoration: none;
   }
   .func-item{
     padding: 10px;

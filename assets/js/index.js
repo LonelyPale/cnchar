@@ -23,3 +23,10 @@ J.ready(function(){
     }
   })
 });
+
+function loaded(){
+  var input = document.getElementById('tryInput')
+  input.removeAttribute('readonly');
+  input.removeAttribute('class');
+  input.value = ''
+}

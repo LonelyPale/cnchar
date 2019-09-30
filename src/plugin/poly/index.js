@@ -2,7 +2,8 @@ var polyPhrases = require('./polyphone-phrase-simple.json')
 
 let _ = {};// 工具方法
 
-let arg = {origin:'origin'}
+// let arg = {origin:'origin'}
+let arg = {poly:'poly'}
 
 var _spell;
 
@@ -10,6 +11,8 @@ function _poly(...args){
     let str = args[0]; // 待处理的字符串
     args = args.splice(1);
     _.checkArgs('spell',args,true);
+    if(_.has(args,_.arg.poly))
+        return _spell(str,...args);
     let newArgs = [_.arg.array]; // 先用数组
     let tone = _.has(args,_.arg.tone);
     // // 多音字参数参数将被忽略
@@ -42,7 +45,7 @@ function main(cnchar){
     _spell = cnchar._origin.spell;
     _ = cnchar._;
     var _new = function(...args){
-        if(_.has(args,arg.origin)){
+        if(_.has(args,arg.poly)){ // 有 poly参数则不使用多音词模式
             return _spell(...args)
         }
         return _poly(...args);
@@ -51,7 +54,7 @@ function main(cnchar){
     String.prototype.spell = function(...args){
         return _new(this,...args);
     }
-    cnchar.type.spell.origin = arg.origin;
+    // cnchar.type.spell.origin = arg.origin;
     cnchar._.poly = true;
     if(cnchar._reinitSpellPoly){
         cnchar._reinitSpellPoly();

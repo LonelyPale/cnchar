@@ -18,9 +18,11 @@
     <div id="header">
       <div id="title">cnchar.js</div>
       <div id="smallTitle">好用小巧、功能全面的汉字繁体字拼音笔画js库</div>
-      <div id="viewProject" class="border-btn" onclick="J.open('https://github.com/theajack/cnchar')">View project on github</div>
+      <a id='viewProjectLink' target="_blank" href="https://github.com/theajack/cnchar">
+        <div id="viewProject" class="border-btn">View project on github</div>
+      </a>
       <div>
-        <input placeholder="请输入汉字尝试一下" id='tryInput' type="text">
+        <input placeholder="请输入汉字尝试一下" id='tryInput' value='正在加载cnchar...' readonly class='unloaded' type="text">
       </div>
       <div id='tryResult'>
         <div id='spell'></div>
@@ -187,11 +189,11 @@
       </div>
     </div>
     <script src="https://www.theajack.com/jetterjs/assets/js/jetter.min.js"></script>
+    <script src="assets/js/index.js"></script>
     <script src="dist/cnchar.2.0.2.min.js"></script>
     <script src="dist/cnchar.order.2.0.2.min.js"></script>
     <script src="dist/cnchar.poly.2.0.2.min.js"></script>
-    <script src="dist/cnchar.trad.2.0.2.min.js"></script>
-    <script src="assets/js/index.js"></script>
+    <script src="dist/cnchar.trad.2.0.2.min.js" onload='loaded()'></script>
     <script src="https://www.theajack.com/assets/js/link.js"></script>
     <script src="https://www.theajack.com/assets/js/logo.js"></script>
     <script src="https://www.theajack.com/assets/js/log.js"></script>
