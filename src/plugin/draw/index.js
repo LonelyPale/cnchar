@@ -1,4 +1,4 @@
-var drawText = require('./draw.js')
+var Draw = require('./draw.js')
 
 function main(cnchar){
     if(cnchar.plugins.indexOf('draw')!==-1){
@@ -32,23 +32,7 @@ function init(){
     return ele
 */
 function draw(text,opt){
-    opt = opt || {};
-    opt.ele = opt.ele || window.document.body;
-    opt.size = opt.size || 40;
-    opt.animation = opt.animation || false;
-    opt.time = opt.time || 500;
-    opt.width = opt.width || 2;
-    opt.color = opt.color || '#000';
-    opt.font = opt.font || 'Microsoft Yahei';
-    if(typeof opt.ele === 'string'){
-        opt.ele = window.document.getElementById(opt.ele);
-    }
-    var canvas = document.createElement('canvas');
-    canvas.width = opt.size * text.length;
-    canvas.height = opt.size;
-    opt.ele.appendChild(canvas);
-    drawText(canvas.getContext("2d"),text,opt)
-    return canvas;
+    return (new Draw(text,opt)).canvas
 }
 
 init();
