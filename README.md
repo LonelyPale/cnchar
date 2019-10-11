@@ -32,7 +32,7 @@ import cnchar from 'cnchar';
 </script>
 ```
 
-<a href="#64-使用实例大全">更多详细使用示例</a>
+<a href="#64-使用实例大全">更多详细使用示例</a> | <a href="#6-spell-stroke-参数">参数详细介绍</a>
 
 ### 1.功能
 
