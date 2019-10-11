@@ -2,7 +2,7 @@
 #### [theajack](https://www.theajack.com/)
 ### 好用小巧、功能全面的汉字拼音笔画js库
 
-**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [Easy-ICON](https://www.theajack.com/easy-icon/)**
+**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
 
 ----
 
