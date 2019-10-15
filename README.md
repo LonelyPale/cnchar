@@ -2,7 +2,7 @@
 #### [theajack](https://www.theajack.com/)
 ### 好用小巧、功能全面的汉字拼音笔画js库
 
-**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/)**
+**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
 
 ----
 
@@ -31,6 +31,8 @@ import cnchar from 'cnchar';
     '汉字'.stroke();
 </script>
 ```
+
+<a href="#64-使用实例大全">更多详细使用示例</a> | <a href="#6-spell-stroke-参数">参数详细介绍</a>
 
 ### 1.功能
 
@@ -142,7 +144,7 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 ### 5 API
 #### 5.1 拼音笔画基础 API
 
-为了尽可能使api使用简单，该库仅设计了两个主要的非常简洁 api，并保证调用参数一致：
+为了尽可能使api使用简单，该库设计了两个主要的非常简洁的 api，并保证调用方式一致：
 
 ```js
 // 获取汉字的拼音、多音词、音调等都集成在以下方法上
