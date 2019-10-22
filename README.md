@@ -1,14 +1,21 @@
 # [cnchar](https://github.com/theajack/cnchar)
 #### [theajack](https://www.theajack.com/)
-### 好用小巧、功能全面的汉字拼音笔画js库
+### 🚀 好用小巧、功能全面的汉字拼音笔画js库
 
-**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
+**[在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [我要反馈错误/缺漏](https://github.com/theajack/cnchar/issues/8) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
 
 ----
 
 [TOC]
 
 ----
+
+### 前言
+
+感谢同学们对于cnchar的支持，由于cnchar词库来源于网络，虽然经过了本人的修改的扩充，但是还是难免有错误与缺漏之处，希望大家可以将使用中发现的错误与缺漏之处 [反馈](https://github.com/theajack/cnchar/issues/8) 给我（或自行修改提交，经过审查无误过后会合到cnchar中）
+
+[我要反馈错误或缺漏](https://github.com/theajack/cnchar/issues/8)
+
 ### 0.快速使用
 
 使用 npm 安装：
