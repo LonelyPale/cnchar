@@ -37,7 +37,7 @@ let cnchar = {
     },
     plugins:[],
     use,
-    _:{arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar,checkArgs},
+    _:{arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar,checkArgs,dict:{}},
     type:{
         spell:arg,
         stroke:{

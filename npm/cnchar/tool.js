@@ -205,9 +205,8 @@ function sumStroke(strs){
     return sum;
 }
 
-// spell 所有参数 ["array", "low", "up", "first", "poly", "tone", "simple", "origin"] 
+// spell 所有参数 ["array", "low", "up", "first", "poly", "tone", "simple"] 
 //  simple 禁用繁体字
-//  origin 禁用多音词
 
 // stroke 所有参数 ["letter", "shape", "count", "name", "detail", "array", "order", "simple"]
 // 
@@ -225,7 +224,7 @@ function checkArgs(type,args,jumpNext){
     var t = _cnchar.type;
     for(var i = args.length-1;i>=0;i--){
         let arg = args[i]
-        if(!t.spell[arg] && !t.stroke[arg]){
+        if(!t[type][arg]){
             useless.push(arg);
             args.splice(i,1);
         }
@@ -249,10 +248,10 @@ function checkArgs(type,args,jumpNext){
         // t.spell.origin 表示启用了多音词
         // !has(args,'origin') 表示没有禁用多音词
         // 此时的 poly 就会被忽略
-        if(t.spell.origin && !has(args,'origin') && has(args,'poly')){ 
-            ignore.push('poly');
-        }
-    } else { // stroke
+        // if(t.spell.origin && !has(args,'origin') && has(args,'poly')){ 
+        //     ignore.push('poly');
+        // }
+    } else if(type === 'stroke') { // stroke
         if(has(args,'order')){ // 笔画顺序模式
             check('array',redunt);
             // detail > shape > name > count > letter 默认值是 letter
@@ -270,14 +269,19 @@ function checkArgs(type,args,jumpNext){
             check(['detail','shape','name','letter'])
             check('count',redunt)
         }
+    } else if(type === 'orderToWord') {
+        if(_cnchar.plugins.indexOf('trad')===-1 && has(args,'simple')){
+            ignore.push('simple');
+        }
     }
-    warnArgs(useless,'无效');
-    warnArgs(ignore,'被忽略');
-    warnArgs(redunt,'冗余');
+    warnArgs(useless,'无效',type);
+    warnArgs(ignore,'被忽略',type);
+    warnArgs(redunt,'冗余',type);
 }
-function warnArgs(arr,txt){
-    if(arr.length>0)
-        _wran(`以下参数${txt}:${JSON.stringify(arr)}`)
+function warnArgs(arr,txt,type){
+    if(arr.length>0){
+        _wran(`以下参数${txt}:${JSON.stringify(arr)};  可选值：[${Object.keys(_cnchar.type[type])}]`)
+    }
 }
 module.exports = {
     _throw,_wran,arg,isCnChar,has,spell,stroke,dealUpLowFirst,removeTone,sumStroke,checkArgs,initCnchar

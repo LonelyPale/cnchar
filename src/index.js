@@ -3,7 +3,7 @@ import './plugin/order'
 import './plugin/trad'
 import './plugin/poly'
 // import './plugin/draw'
-console.log('1',cnchar)
+// console.log('1',cnchar)
 export default cnchar;
 
 // var cnchar = require('./main/index')

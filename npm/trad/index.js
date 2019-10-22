@@ -29,6 +29,7 @@ function main(cnchar){
     _p.convertToSimple = function(){return convert.toSimple(this);}
     _p.convertToSpark = function(){return convert.toSpark(this);}
     _ = cnchar._;
+    _.dict.getTradOrders = function(){return orderDict;}
 }
 
 function init(cnchar){
