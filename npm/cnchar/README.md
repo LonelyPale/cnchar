@@ -32,7 +32,7 @@ import cnchar from 'cnchar';
 使用 script 标签使用：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.3.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -91,10 +91,10 @@ npm i cnchar-all
 #### 3.2 使用 script 引入
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.3.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
 ```
 
 ### 4 使用
@@ -138,10 +138,10 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入js文件：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.3.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.3.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
 <script>
     console.log('汉字'.spell());// prototype 方式调用
     console.log(cnchar.spell('汉字'));// cnchar api 调用
@@ -471,24 +471,26 @@ cnchar.orderToWord(['横','撇','捺'],'all','simple');
 
 该库用于支持繁体字火星文转换及其拼音笔画数功能
 
-###### 6.4.4.1 conver 方法
+###### 6.4.4.1 convert 字体转换
 
 ```js
-"一个人".convert('trad') // 返回 "壹個人"
-"一个人".convert('spark') // 返回 "①個亾"
-"一个人".convert('trad','simple') // 返回 "壹個人" 指定从简体转换为繁体
-"壹個人".convert('simple') // 返回 "一个人"
-"壹個人".convert('spark') // 返回 "①個亾"
-// 其他api
 "一个人".convertSimpleToTrad(); // 返回 "壹個人" 等价于 cnchar.convert.simpleToTrad
+cnchar.convert.simpleToTrad("一个人");
+
 "一个人".convertSimpleToSpark(); // 返回 "①個亾" 等价于 cnchar.convert.simpleToSpark
+cnchar.convert.simpleToSpark("一个人");
+
 "壹個人".convertTradToSimple(); // 返回 "一个人" 等价于 cnchar.convert.tradToSimple
+cnchar.convert.tradToSimple("壹個人");
+
 "壹個人".convertTradToSpark(); // 返回 "①個亾" 等价于 cnchar.convert.tradToSpark
+cnchar.convert.tradToSpark("壹個人");
+
 "①個亾".convertSparkToSimple(); // 返回 "一个人" 等价于 cnchar.convert.sparkToSimple
+cnchar.convert.sparkToSimple("①個亾");
+
 "①個亾".convertSparkToTrad(); // 返回 "壹個人" 等价于 cnchar.convert.sparkToTrad
-"一个人".convertToTrad(); // 返回 "壹個人" 等价于 cnchar.convert.toTrad
-"壹個人".convertToSimple(); // 返回 "一个人" 等价于 cnchar.convert.toSpark
-"一个人".convertToSpark(); // 返回 "①個亾" 等价于 cnchar.convert.toSimple
+cnchar.convert.sparkToTrad("①個亾");
 ```
 
 ###### 6.4.4.2 spell 和 stroke 方法

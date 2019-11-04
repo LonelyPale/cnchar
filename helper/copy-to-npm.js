@@ -11,10 +11,6 @@ let files = [
     '../npm/cnchar-all/package.json',
     '../npm/hanzi-util/package.json',
     '../npm/hanzi-util-base/package.json',
-    // '../npm/cncharorder/package.json',
-    // '../npm/cncharpoly/package.json',
-    // '../npm/cnchartrad/package.json',
-    // '../npm/cncharall/package.json',
 ]
 
 function modVersion(){
