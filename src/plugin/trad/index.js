@@ -1,7 +1,7 @@
 var countDict = require( './stroke-count-fan.json')
 var orderDict = require( './stroke-order-fan.json')
 
-var convert = require( './jian-fan')
+var convert = require( './converter')
 let arg = {
     simple:'simple',array:'array',order:'order' // 开启简单模式
 }
@@ -18,16 +18,16 @@ function main(cnchar){
     cnchar.type.stroke.simple = arg.simple;
     reinitSpell(_p, cnchar);
     reinitStroke(_p, cnchar);
-    _p.convert = function(to,from){return convert(this,to,from);} 
+    // _p.convert = function(to,from){return convert(this,to,from);} 
     _p.convertSimpleToTrad = function(){return convert.simpleToTrad(this);}
     _p.convertSimpleToSpark = function(){return convert.simpleToSpark(this);}
     _p.convertTradToSimple = function(){return convert.tradToSimple(this);}
     _p.convertTradToSpark = function(){return convert.tradToSpark(this);}
     _p.convertSparkToSimple = function(){return convert.sparkToSimple(this);}
     _p.convertSparkToTrad = function(){return convert.sparkToTrad(this);}
-    _p.convertToTrad = function(){return convert.toTrad(this);}
-    _p.convertToSimple = function(){return convert.toSimple(this);}
-    _p.convertToSpark = function(){return convert.toSpark(this);}
+    // _p.convertToTrad = function(){return convert.toTrad(this);}
+    // _p.convertToSimple = function(){return convert.toSimple(this);}
+    // _p.convertToSpark = function(){return convert.toSpark(this);}
     _ = cnchar._;
     _.dict.getTradOrders = function(){return orderDict;}
 }
