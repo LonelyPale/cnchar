@@ -1,17 +1,18 @@
 {
     "name": "cnchar",
-    "version": "2.0.4",
+    "version": "2.0.6",
     "description": "好用小巧、功能全面的汉字拼音笔画js库，支持多音字、繁体字、火星文",
     "main": "index.js",
     "scripts": {
-        "build": "webpack --config webpack-config/build.js",
+        "build": "npm run build:main && npm run build:plugin && npm run build:npm && npm run build:publish",
+        "build:main": "webpack --config webpack-config/build.js",
         "build:poly": "webpack --config webpack-config/build.plugin.js --env.pluginname=poly",
         "build:order": "webpack --config webpack-config/build.plugin.js --env.pluginname=order",
         "build:trad": "webpack --config webpack-config/build.plugin.js --env.pluginname=trad",
         "build:plugin": "npm run build:poly && npm run build:order && npm run build:trad",
-        "build:all": "npm run build && npm run build:plugin",
         "build:npm": "node ./helper/copy-to-npm.js",
-        "start": "webpack-dev-server --open --config webpack-config/dev.js"
+        "start": "webpack-dev-server --open --config webpack-config/dev.js",
+        "publish": "npm publish npm/cnchar && npm publish npm/order && npm publish npm/poly && npm publish npm/trad && npm publish npm/cnchar-all && npm publish npm/hanzi-util-base && npm publish npm/hanzi-util"
     },
     "author": "",
     "license": "MIT",

@@ -171,44 +171,24 @@ string.stroke([...args])
 
 #### 5.2 繁体、简体、火星文互转
 
-当引入 `cnchar-trad` 之后，cnchar 就具备了繁体、简体、火星文互转功能，使用 `cnchar.convert` 方法，你就可以使用这个功能：
+当引入 `cnchar-trad` 之后，cnchar 就具备了繁体、简体、火星文互转功能，使用 `cnchar.convert` 对象上的方法，你就可以使用这个功能
+
+自从v2.0.4以后，cnchar保留以下方法可供使用：
 
 ```js
-cnchar.convert(string,to[,from]); // cnchar api 调用
-//或
-string.convert(to[,from]) // prototype 方式调用
-```
+cnchar.convert.simpleToTrad(string); // 简体 => 繁体
+cnchar.convert.simpleToSpark(string); // 简体 => 火星文
+cnchar.convert.tradToSimple(string); // 繁体 => 简体
+cnchar.convert.tradToSpark(string); // 繁体 => 火星文
+cnchar.convert.sparkToSimple(string); // 火星文 => 简体
+cnchar.convert.sparkToTrad(string); // 火星文 => 繁体
 
-`string` 必选 表示要处理的汉字字符串
-
-`to` 必选 表示转到的目标文字类型
-
-`from` 可选 当前的文字类型，如果不传入cnchar会自动识别，传入的话js执行效率会快一些
-
-to和from的可选值有：`simple`,`trad`,`spark`
-
-除了 convert 方法以外，cnchar 还提供了一些衍生的方法可供使用：
-
-```js
 string.convertSimpleToTrad();
 string.convertSimpleToSpark();
 string.convertTradToSimple();
 string.convertTradToSpark();
 string.convertSparkToSimple();
 string.convertSparkToTrad();
-string.convertToTrad();
-string.convertToSimple();
-string.convertToSpark();
-
-cnchar.convert.simpleToTrad(string);
-cnchar.convert.simpleToSpark(string);
-cnchar.convert.tradToSimple(string);
-cnchar.convert.tradToSpark(string);
-cnchar.convert.sparkToSimple(string);
-cnchar.convert.sparkToTrad(string);
-cnchar.convert.toTrad(string);
-cnchar.convert.toSpark(string);
-cnchar.convert.toSimple(string);
 ```
 
 #### 5.3 笔画序列推出原汉字
