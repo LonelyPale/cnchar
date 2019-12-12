@@ -32,3 +32,4 @@
 
 ### 2.0.5 - 2.0.6
 1. 加入了 typescript 声明文件 index.d.ts
+2. script 方式引用增加了 latest.min.js 版本
