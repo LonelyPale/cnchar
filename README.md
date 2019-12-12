@@ -32,7 +32,11 @@ import cnchar from 'cnchar';
 使用 script 标签使用：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<!--
+或通过版本号引用
+<script src="https://www.theajack.com/cnchar/dist/cnchar.{version}.min.js"></script>
+-->
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -91,10 +95,15 @@ npm i cnchar-all
 #### 3.2 使用 script 引入
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.latest.min.js"></script>
+<!-- 或使用版本号引用 -->
+<script src="https://www.theajack.com/cnchar/dist/cnchar.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.{version}.min.js"></script>
 ```
 
 ### 4 使用
@@ -138,10 +147,10 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入js文件：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.latest.min.js"></script>
 <script>
     console.log('汉字'.spell());// prototype 方式调用
     console.log(cnchar.spell('汉字'));// cnchar api 调用
