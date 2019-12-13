@@ -211,7 +211,39 @@ cnchar.orderToWord(orderNameArray[,...args]);
 `orderNameArray` 是笔画名称序列，是一个数组，可用的笔画名称可以通过以下api查看
 
 ```js
-var dict = cnchar.orderToWord.orders;
+var dict = cnchar.orderToWord.orders; // dict 是一个包含所有笔画数的详细信息的json数据
+```
+
+笔画详细信息的如下，orderNameArray只需要传入笔画名称即可，也就是下面json数据的key值
+
+```js
+{
+    弯钩: {shape: "㇁", letter: "t"},
+    捺: {shape: "㇏", letter: "l"},
+    提: {shape: "㇀", letter: "i"},
+    撇: {shape: "㇓", letter: "s"},
+    撇折: {shape: "㇜", letter: "n"},
+    撇点: {shape: "㇛", letter: "m"},
+    斜钩: {shape: "㇂(㇃)", letter: "y"},
+    横: {shape: "㇐", letter: "j"},
+    横折: {shape: "㇕", letter: "c"},
+    横折折: {shape: "㇅(㇍)", letter: "v"},
+    横折折折: {shape: "㇎", letter: "q"},
+    横折折折钩: {shape: "㇡(㇌)", letter: "w"},
+    横折折撇: {shape: "㇋", letter: "a"},
+    横折提: {shape: "㇊", letter: "p"},
+    横折钩: {shape: "㇆", letter: "r"},
+    横撇: {shape: "㇇(㇖)", letter: "e"},
+    横斜钩: {shape: "⺄", letter: "o"},
+    点: {shape: "㇔", letter: "k"},
+    竖: {shape: "㇑", letter: "f"},
+    竖弯: {shape: "㇄", letter: "b"},
+    竖弯钩: {shape: "㇟", letter: "u"},
+    竖折折钩: {shape: "㇉", letter: "z"},
+    竖折撇: {shape: "ㄣ(㇞)", letter: "x"},
+    竖提: {shape: "㇙", letter: "h"},
+    竖钩: {shape: "㇚", letter: "g"}
+}
 ```
 
 `args` 是参数列表，可选值有  `['all','simple']`, 使用 `cnchar.type.orderToWord` 可以查看可选值
