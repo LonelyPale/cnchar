@@ -2,7 +2,7 @@
 #### [theajack](https://www.theajack.com/)
 ### 🚀 好用小巧、功能全面的汉字拼音笔画js库
 
-**<a href="#64-使用实例大全">快速使用</a> | [在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [反馈错误/缺漏](https://github.com/theajack/cnchar/issues/8) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
+**<a href="#64-使用实例大全">快速上手</a> | [在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [反馈错误/缺漏](https://github.com/theajack/cnchar/issues/8) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
 
 ----
 
@@ -401,6 +401,28 @@ arg 参数信息如下：
 | simple |         禁用繁体字         |    否    | cnchar-trad | 该参数仅在引入了 `cnchar-trad` 后有效 |
 
 #### 6.4 使用实例大全：
+
+##### 6.4.0 安装使用
+
+npm 方式
+
+```
+npm i cnchar
+```
+
+```js
+import cnchar from 'cnchar';
+// do something
+```
+
+script标签引用 方式
+
+```html
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<script>
+    // do something
+</script>
+```
 
 ##### 6.4.1 cnchar 基础库功能
 
