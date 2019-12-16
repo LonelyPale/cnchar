@@ -33,3 +33,8 @@
 ### 2.0.5 - 2.0.6
 1. 加入了 typescript 声明文件 index.d.ts
 2. script 方式引用增加了 latest.min.js 版本
+
+### 2.0.7
+1. 加入 eslint 和 commitlint
+2. 使用 gulp-babel 转换源代码到 npm 包，使得即便禁用了对node_module的babel转换，也可以正常使用cnchr
+3. 修复了多音字广和厂的默认读音

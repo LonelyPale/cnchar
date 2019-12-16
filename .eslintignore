@@ -1,4 +1,5 @@
 node_modules
 dist
+npm
 cnchar.min.js
 index.html

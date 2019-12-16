@@ -1,6 +1,6 @@
 {
     "name": "cnchar",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "好用小巧、功能全面的汉字拼音笔画js库，支持多音字、繁体字、火星文",
     "main": "index.html",
     "author": "theajack",
@@ -12,7 +12,7 @@
         "build:order": "webpack --config webpack-config/build.plugin.js --env.pluginname=order",
         "build:trad": "webpack --config webpack-config/build.plugin.js --env.pluginname=trad",
         "build:plugin": "npm run build:poly && npm run build:order && npm run build:trad",
-        "build:npm": "node ./helper/copy-to-npm.js",
+        "build:npm": "node ./helper/build-npm.js",
         "start": "webpack-dev-server --open --config webpack-config/dev.js",
         "publish": "npm publish npm/cnchar && npm publish npm/order && npm publish npm/poly && npm publish npm/trad && npm publish npm/cnchar-all && npm publish npm/hanzi-util-base && npm publish npm/hanzi-util",
         "lint": "eslint src --ext js"
@@ -27,6 +27,7 @@
         "eslint": "^6.7.2",
         "eslint-loader": "^3.0.3",
         "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
         "gulp-rename": "^1.4.0",
         "husky": "^3.1.0",
         "recast": "^0.18.2",

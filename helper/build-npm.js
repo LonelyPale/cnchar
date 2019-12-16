@@ -1,6 +1,7 @@
-var gulp = require('gulp');
-var rename = require('gulp-rename');
-var fs = require('fs');
+const gulp = require('gulp');
+const rename = require('gulp-rename');
+const fs = require('fs');
+const babel = require('gulp-babel');
 let version = require('../package.json').version;
 let files = [
     '../npm/order/package.json',
@@ -45,24 +46,30 @@ function modDep () {
 function task () {
     modVersion();
     modDep();
+    copyToNPM();
+    copyLatest();
+    transEs6ByBabel();
+}
 
-    gulp.src(['src/main/*.*', 'README.md', 'LICENSE'])
+function copyToNPM () {
+    gulp.src(['src/main/*.json', 'README.md', 'LICENSE'])
         .pipe(gulp.dest('npm/cnchar'));
 
-    gulp.src(['src/plugin/order/*.*', 'README.md', 'LICENSE'])
+    gulp.src(['src/plugin/order/*.json', 'README.md', 'LICENSE'])
         .pipe(gulp.dest('npm/order'));
 
-    gulp.src(['src/plugin/poly/*.*', 'README.md', 'LICENSE'])
+    gulp.src(['src/plugin/poly/*.json', 'README.md', 'LICENSE'])
         .pipe(gulp.dest('npm/poly'));
 
-    gulp.src(['src/plugin/trad/*.*', 'README.md', 'LICENSE'])
+    gulp.src(['src/plugin/trad/*.json', 'README.md', 'LICENSE'])
         .pipe(gulp.dest('npm/trad'));
 
     gulp.src(['src/main/index.d.ts', 'LICENSE'])
         .pipe(gulp.dest('npm/cnchar-all'))
         .pipe(gulp.dest('npm/hanzi-util'))
         .pipe(gulp.dest('npm/hanzi-util-base'));
-        
+}
+function copyLatest () {
     gulp.src(`dist/*.${version}.min.js`)
         .pipe(rename(function (path) {
             path.basename = path.basename.replace(version, 'latest');
@@ -70,4 +77,22 @@ function task () {
         }))
         .pipe(gulp.dest('dist'));
 }
+function transEs6ByBabel () {
+    gulp.src('src/main/*.js')
+        .pipe(babel({presets: ['@babel/env']}))
+        .pipe(gulp.dest('npm/cnchar'));
+
+    gulp.src('src/plugin/order/*.js')
+        .pipe(babel({presets: ['@babel/env']}))
+        .pipe(gulp.dest('npm/order'));
+
+    gulp.src('src/plugin/poly/*.js')
+        .pipe(babel({presets: ['@babel/env']}))
+        .pipe(gulp.dest('npm/poly'));
+
+    gulp.src('src/plugin/trad/*.js')
+        .pipe(babel({presets: ['@babel/env']}))
+        .pipe(gulp.dest('npm/trad'));
+}
+
 task();
