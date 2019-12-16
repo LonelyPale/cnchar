@@ -1,7 +1,7 @@
-import cnchar from './main/index'
-import './plugin/order'
-import './plugin/trad'
-import './plugin/poly'
+import cnchar from './main/index';
+import './plugin/order';
+import './plugin/trad';
+import './plugin/poly';
 // import './plugin/draw'
 // console.log('1',cnchar)
 export default cnchar;

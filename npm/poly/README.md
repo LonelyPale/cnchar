@@ -32,7 +32,11 @@ import cnchar from 'cnchar';
 使用 script 标签使用：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<!--
+或通过版本号引用
+<script src="https://www.theajack.com/cnchar/dist/cnchar.{version}.min.js"></script>
+-->
 <script>
     '汉字'.spell();
     '汉字'.stroke();
@@ -50,7 +54,7 @@ import cnchar from 'cnchar';
 5. 获取汉字 **笔画顺序** 、笔画详细名称、通过笔画顺序推出原汉字等
 6. 支持 **简体字** 、 **繁体字** 、 **火星文** 互转
 7. 支持 **繁体字** 拼音、笔画数，实现和简体字一样的功能
-8. **体积小**，最小压缩版本仅 42 kb
+8. **体积小**，min 版本仅 46 kb，zip 版本 34 kb (含有大量汉字拼音字典)
 9.  **多端可用**，可用于 原生浏览器环境、webpack环境、nodejs环境...，几乎支持所有js能运行的环境
 10. 丰富的配置，按需取用
 
@@ -91,10 +95,15 @@ npm i cnchar-all
 #### 3.2 使用 script 引入
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.latest.min.js"></script>
+<!-- 或使用版本号引用 -->
+<script src="https://www.theajack.com/cnchar/dist/cnchar.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.{version}.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.{version}.min.js"></script>
 ```
 
 ### 4 使用
@@ -138,10 +147,10 @@ console.log(cnchar.spell('汉字'));// cnchar api 调用
 原生浏览器环境就需要使用 script 标签引入js文件：
 
 ```html
-<script src="https://www.theajack.com/cnchar/dist/cnchar.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.order.2.0.4.min.js"></script>
-<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.2.0.4.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.poly.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.order.latest.min.js"></script>
+<script src="https://www.theajack.com/cnchar/dist/cnchar.trad.latest.min.js"></script>
 <script>
     console.log('汉字'.spell());// prototype 方式调用
     console.log(cnchar.spell('汉字'));// cnchar api 调用
@@ -202,7 +211,39 @@ cnchar.orderToWord(orderNameArray[,...args]);
 `orderNameArray` 是笔画名称序列，是一个数组，可用的笔画名称可以通过以下api查看
 
 ```js
-var dict = cnchar.orderToWord.orders;
+var dict = cnchar.orderToWord.orders; // dict 是一个包含所有笔画数的详细信息的json数据
+```
+
+笔画详细信息的如下，orderNameArray只需要传入笔画名称即可，也就是下面json数据的key值
+
+```js
+{
+    弯钩: {shape: "㇁", letter: "t"},
+    捺: {shape: "㇏", letter: "l"},
+    提: {shape: "㇀", letter: "i"},
+    撇: {shape: "㇓", letter: "s"},
+    撇折: {shape: "㇜", letter: "n"},
+    撇点: {shape: "㇛", letter: "m"},
+    斜钩: {shape: "㇂(㇃)", letter: "y"},
+    横: {shape: "㇐", letter: "j"},
+    横折: {shape: "㇕", letter: "c"},
+    横折折: {shape: "㇅(㇍)", letter: "v"},
+    横折折折: {shape: "㇎", letter: "q"},
+    横折折折钩: {shape: "㇡(㇌)", letter: "w"},
+    横折折撇: {shape: "㇋", letter: "a"},
+    横折提: {shape: "㇊", letter: "p"},
+    横折钩: {shape: "㇆", letter: "r"},
+    横撇: {shape: "㇇(㇖)", letter: "e"},
+    横斜钩: {shape: "⺄", letter: "o"},
+    点: {shape: "㇔", letter: "k"},
+    竖: {shape: "㇑", letter: "f"},
+    竖弯: {shape: "㇄", letter: "b"},
+    竖弯钩: {shape: "㇟", letter: "u"},
+    竖折折钩: {shape: "㇉", letter: "z"},
+    竖折撇: {shape: "ㄣ(㇞)", letter: "x"},
+    竖提: {shape: "㇙", letter: "h"},
+    竖钩: {shape: "㇚", letter: "g"}
+}
 ```
 
 `args` 是参数列表，可选值有  `['all','simple']`, 使用 `cnchar.type.orderToWord` 可以查看可选值
