@@ -5,6 +5,19 @@
     "main": "index.html",
     "author": "theajack",
     "license": "MIT",
+    "keywords": [
+        "cnchar",
+        "chinese-character",
+        "chinese-pinyin",
+        "chinese-character-strokes",
+        "traditional-chinese",
+        "chinese-character-tools",
+        "汉字拼音",
+        "汉字笔画",
+        "汉字笔顺",
+        "繁体字",
+        "汉字工具"
+    ],
     "scripts": {
         "build": "npm run build:main && npm run build:plugin && npm run build:npm",
         "build:main": "webpack --config webpack-config/build.js",
