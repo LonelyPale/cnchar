@@ -1,5 +1,7 @@
 # [cnchar](https://github.com/theajack/cnchar)
+
 #### [theajack](https://www.theajack.com/)
+
 ### 🚀 好用小巧、功能全面的汉字拼音笔画js库
 
 **<a href="#64-使用实例大全">快速上手</a> | [在线试用](https://www.theajack.com/cnchar/) | [更新日志](https://github.com/theajack/cnchar/blob/master/helper/version.md) | [应用:打字游戏](https://www.theajack.com/type/) | [反馈错误/缺漏](https://github.com/theajack/cnchar/issues/8) | [Easy-ICON](https://github.com/theajack/easy-icon/blob/master/README_CN.md/)**
@@ -351,6 +353,7 @@ var plugins = cnchar.plugins; // array 类型
 ```
 
 ### 6 spell stroke 参数
+
 #### 6.1 spell 参数
 
 参数调用如下，所有arg参数都是可选的
@@ -377,8 +380,8 @@ arg 参数信息如下：
 参数调用如下，所有arg参数都是可选的
 
 ```js
-cnchar.stroke(string,arg1,arg2,...); 
-string.stroke(arg1,arg2,...)
+cnchar.stroke(string,arg1,arg2,...);
+string.stroke(arg1,arg2,...);
 ```
 
 arg 参数信息如下：
@@ -400,7 +403,7 @@ arg 参数信息如下：
 参数调用如下，所有arg参数都是可选的
 
 ```js
-cnchar.orderToWord(orderArray,arg1,arg2); 
+cnchar.orderToWord(orderArray,arg1,arg2);
 ```
 
 arg 参数信息如下：
