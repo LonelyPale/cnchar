@@ -38,3 +38,7 @@
 1. 加入 eslint 和 commitlint
 2. 使用 gulp-babel 转换源代码到 npm 包，使得即便禁用了对node_module的babel转换，也可以正常使用cnchr
 3. 修复了多音字广和厂的默认读音
+
+### 2.0.8
+1. 扩充了217个词频高于100的汉字
+2. 修改orderToWord.orders 笔画名称的显示，如果某个笔画有两个现在会保留两个名称

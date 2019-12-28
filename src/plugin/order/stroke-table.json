@@ -78,16 +78,16 @@
 		"name": "撇折"
 	},
 	"x": {
-		"shape": "ㄣ(㇞)",
+		"shape": "ㄣ|㇞",
 		"type": "折笔",
 		"foldCount": "2",
-		"name": "竖折撇"
+		"name": "竖折撇|竖折折"
 	},
 	"w": {
-		"shape": "㇡(㇌)",
+		"shape": "㇡|㇌",
 		"type": "折笔",
 		"foldCount": "4",
-		"name": "横折折折钩(横撇弯钩)"
+		"name": "横折折折钩|横撇弯钩"
 	},
 	"z": {
 		"shape": "㇉",
@@ -108,22 +108,22 @@
 		"name": "弯钩"
 	},
 	"y": {
-		"shape": "㇂(㇃)",
+		"shape": "㇂|㇃",
 		"type": "折笔",
 		"foldCount": "1",
-		"name": "斜钩(卧钩)"
+		"name": "斜钩|卧钩"
 	},
 	"v": {
-		"shape": "㇅(㇍)",
+		"shape": "㇅|㇍",
 		"type": "折笔",
 		"foldCount": "2",
-		"name": "横折折(横折弯)"
+		"name": "横折折|横折弯"
 	},
 	"e": {
-		"shape": "㇇(㇖)",
+		"shape": "㇇|㇖",
 		"type": "折笔",
 		"foldCount": "1",
-		"name": "横撇(横钩)"
+		"name": "横撇|横钩"
 	},
 	"p": {
 		"shape": "㇊",

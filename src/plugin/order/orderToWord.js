@@ -66,12 +66,25 @@ function init () {
     orderToWord._base = base;
     for (var k in strokeTable) {
         var single = strokeTable[k];
-        let name = single.name.split('(')[0]; // 有别名时 只取第一个
-        orderToWord.orders[name] = {
-            shape: single.shape,
-            letter: k
-        };
+        // let name = single.name.split('(')[0]; // 有别名时 只取第一个
+        let name = single.name; // 有别名时 只取第一个
+        let shape = single.shape;
+        // 2.0.8 修改 保留两个
+        if (name.indexOf('|') !== -1) {
+            let names = name.split('|');
+            let shapes = shape.split('|');
+            addToOrders(names[0], shapes[0], k, names[1]);
+            addToOrders(names[1], shapes[1], k, names[0]);
+        } else {
+            addToOrders(name, shape, k);
+        }
     }
+}
+
+function addToOrders (name, shape, letter, sameLetterTo) {
+    let data = {shape, letter};
+    if (sameLetterTo) { data.sameLetterTo = sameLetterTo; }
+    orderToWord.orders[name] = data;
 }
 
 init();

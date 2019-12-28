@@ -2,7 +2,8 @@ declare type spellArg = 'array' | 'low' | 'up' | 'first' | 'poly' | 'tone' | 'si
 declare type strokeArg = 'letter' | 'shape' | 'count' | 'name' | 'detail' | 'array' | 'order' | 'simple';
 declare type orderToWordArg = 'all' | 'simple';
 declare type pluginArg = 'order' | 'trad' | 'poly';
-declare type orderName = '横折折撇' | '竖弯' | '横折' | '撇点' | '横斜钩' | '横' | '捺' | '横折钩' | '竖' | '竖钩' | '点' | '撇' | '撇折' | '竖折撇' | '横折折折钩' | '竖折折钩' | '提' | '弯钩' | '斜钩' | '横折折' | '横撇' | '横折提' | '横折折折' | '竖提' | '竖弯钩';
+declare type orderName = '横折折撇' | '竖弯' | '横折' | '撇点' | '横斜钩' | '横' | '捺' | '横折钩' | '竖' | '竖钩' | '点' | '撇' | '撇折' | '竖折撇' | '横折折折钩' | '竖折折钩' | '提' | '弯钩' | '斜钩' | '横折折' | '横撇' | '横折提' | '横折折折' | '竖提' | '竖弯钩'
+    | '竖折折' | '横撇弯钩' | '卧钩' | '横折弯' | '横钩';
 
 declare interface CnCharStatic {
     spell(sentence: string, ...args: Array<spellArg>): string | Array<any>;

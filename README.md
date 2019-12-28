@@ -208,7 +208,15 @@ string.convertSparkToTrad();
 cnchar.orderToWord(orderNameArray[,...args]);
 ```
 
-`orderNameArray` 是笔画名称序列，是一个数组，可用的笔画名称可以通过以下api查看
+`orderNameArray` 是笔画名称序列
+
+`args` 是参数列表，可选值有  `['all','simple']`, 使用 `cnchar.type.orderToWord` 可以查看可选值
+
+`'all'` 表示匹配所有以该笔序开头的汉字
+
+`'simple'` 表示禁用繁体字，该参数仅在引入了 `cnchar-trad` 后有效
+
+`orderNameArray` 是一个数组，可用的笔画名称可以通过以下api查看
 
 ```js
 var dict = cnchar.orderToWord.orders; // dict 是一个包含所有笔画数的详细信息的json数据
@@ -218,39 +226,41 @@ var dict = cnchar.orderToWord.orders; // dict 是一个包含所有笔画数的�
 
 ```js
 {
-    弯钩: {shape: "㇁", letter: "t"},
-    捺: {shape: "㇏", letter: "l"},
-    提: {shape: "㇀", letter: "i"},
-    撇: {shape: "㇓", letter: "s"},
-    撇折: {shape: "㇜", letter: "n"},
-    撇点: {shape: "㇛", letter: "m"},
-    斜钩: {shape: "㇂(㇃)", letter: "y"},
-    横: {shape: "㇐", letter: "j"},
-    横折: {shape: "㇕", letter: "c"},
-    横折折: {shape: "㇅(㇍)", letter: "v"},
-    横折折折: {shape: "㇎", letter: "q"},
-    横折折折钩: {shape: "㇡(㇌)", letter: "w"},
-    横折折撇: {shape: "㇋", letter: "a"},
-    横折提: {shape: "㇊", letter: "p"},
-    横折钩: {shape: "㇆", letter: "r"},
-    横撇: {shape: "㇇(㇖)", letter: "e"},
-    横斜钩: {shape: "⺄", letter: "o"},
-    点: {shape: "㇔", letter: "k"},
-    竖: {shape: "㇑", letter: "f"},
-    竖弯: {shape: "㇄", letter: "b"},
-    竖弯钩: {shape: "㇟", letter: "u"},
-    竖折折钩: {shape: "㇉", letter: "z"},
-    竖折撇: {shape: "ㄣ(㇞)", letter: "x"},
-    竖提: {shape: "㇙", letter: "h"},
+    卧钩: {shape: "㇃", letter: "y", sameLetterTo: "斜钩"}
+    弯钩: {shape: "㇁", letter: "t"}
+    捺: {shape: "㇏", letter: "l"}
+    提: {shape: "㇀", letter: "i"}
+    撇: {shape: "㇓", letter: "s"}
+    撇折: {shape: "㇜", letter: "n"}
+    撇点: {shape: "㇛", letter: "m"}
+    斜钩: {shape: "㇂", letter: "y", sameLetterTo: "卧钩"}
+    横: {shape: "㇐", letter: "j"}
+    横折: {shape: "㇕", letter: "c"}
+    横折弯: {shape: "㇍", letter: "v", sameLetterTo: "横折折"}
+    横折折: {shape: "㇅", letter: "v", sameLetterTo: "横折弯"}
+    横折折折: {shape: "㇎", letter: "q"}
+    横折折折钩: {shape: "㇡", letter: "w", sameLetterTo: "横撇弯钩"}
+    横折折撇: {shape: "㇋", letter: "a"}
+    横折提: {shape: "㇊", letter: "p"}
+    横折钩: {shape: "㇆", letter: "r"}
+    横撇: {shape: "㇇", letter: "e", sameLetterTo: "横钩"}
+    横撇弯钩: {shape: "㇌", letter: "w", sameLetterTo: "横折折折钩"}
+    横斜钩: {shape: "⺄", letter: "o"}
+    横钩: {shape: "㇖", letter: "e", sameLetterTo: "横撇"}
+    点: {shape: "㇔", letter: "k"}
+    竖: {shape: "㇑", letter: "f"}
+    竖弯: {shape: "㇄", letter: "b"}
+    竖弯钩: {shape: "㇟", letter: "u"}
+    竖折折: {shape: "㇞", letter: "x", sameLetterTo: "竖折撇"}
+    竖折折钩: {shape: "㇉", letter: "z"}
+    竖折撇: {shape: "ㄣ", letter: "x", sameLetterTo: "竖折折"}
+    竖提: {shape: "㇙", letter: "h"}
     竖钩: {shape: "㇚", letter: "g"}
 }
 ```
 
-`args` 是参数列表，可选值有  `['all','simple']`, 使用 `cnchar.type.orderToWord` 可以查看可选值
-
-`'all'` 表示匹配所有以该笔序开头的汉字
-
-`'simple'` 表示禁用繁体字，该参数仅在引入了 `cnchar-trad` 后有效
+注：其中以下五对笔画没有进行区分，使用的是同样的字母表示：
+**卧钩 = 斜钩**、**横折弯 = 横折折**、**横折折折钩 = 横撇弯钩**、**横撇 = 横钩**、**竖折折 = 竖折撇**
 
 以下是一个例子：
 
