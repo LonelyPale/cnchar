@@ -3,8 +3,21 @@
     "version": "2.0.7",
     "description": "好用小巧、功能全面的汉字拼音笔画js库，支持多音字、繁体字、火星文",
     "main": "index.html",
-    "author": "theajack",
+    "author": "theajack <contact@theajack.com>",
     "license": "MIT",
+    "keywords": [
+        "cnchar",
+        "chinese-character",
+        "chinese-pinyin",
+        "chinese-character-strokes",
+        "traditional-chinese",
+        "chinese-character-tools",
+        "汉字拼音",
+        "汉字笔画",
+        "汉字笔顺",
+        "繁体字",
+        "汉字工具"
+    ],
     "scripts": {
         "build": "npm run build:main && npm run build:plugin && npm run build:npm",
         "build:main": "webpack --config webpack-config/build.js",
