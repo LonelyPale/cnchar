@@ -57,7 +57,7 @@ function _poly() {
       var pa = polyPhrases[k].split(' '); // 多音词拼音数组
 
       for (var i = 0; i < pa.length; i++) {
-        res[index + i] = _.removeTone(pa[i], tone);
+        res[index + i] = _.removeTone(pa[i], tone).spell;
       }
     }
   }

@@ -10,4 +10,7 @@ console.log(cnchar.orderToWord(['横', '撇', '捺']));
 console.log('美好的地方'.spell('tone'));
 console.log('长大了'.spell());
 console.log('长大了'.spell('poly'));
+console.log(cnchar.strokeToWord(25, 'simple'));
+console.log(cnchar.spellToWord('lv2', 'simple'));
+console.log(cnchar.spellInfo('Shàng'));
 // module.exports = cnchar

@@ -42,3 +42,10 @@
 ### 2.0.8
 1. 扩充了217个词频高于100的汉字
 2. 修改orderToWord.orders 笔画名称的显示，如果某个笔画有两个现在会保留两个名称
+3. orderToWord 笔画数组支持使用空格分隔的笔画字符串
+3. orderToWord 默认返回字符串 如需返回数组请加上 array 参数
+4. orderToWord 修改all参数为start 增加 contain、match、matchorder参数，优先级 match>matchorder>contain>start>默认
+5. 加入 cnchar.spellToWord 方法
+6. 加入 cnchar.strokeToWord 方法
+7. 加入 cnchar.spellInfo 方法，spellInfo.tones spellInfo.initials属性
+8. 仓库加入测试目录

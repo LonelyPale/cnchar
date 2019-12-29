@@ -4,6 +4,7 @@ var version = require('./version');
 
 var _require = require('./tool'),
     spell = _require.spell,
+    tones = _require.tones,
     stroke = _require.stroke,
     arg = _require.arg,
     has = _require.has,
@@ -17,6 +18,10 @@ var _require = require('./tool'),
     initCnchar = _require.initCnchar;
 
 var dict = require('./dict');
+
+var initSpellToWord = require('./spellToWord');
+
+var initStrokeToWord = require('./strokeToWord');
 
 function _spell() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -34,7 +39,7 @@ function _stroke() {
   return stroke(dict.stroke, args);
 }
 
-function init() {
+function initStrProto() {
   String.prototype.spell = function () {
     for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
       args[_key3] = arguments[_key3];
@@ -64,7 +69,6 @@ function use() {
   });
 }
 
-init();
 var cnchar = {
   version: version,
   spell: _spell,
@@ -80,6 +84,7 @@ var cnchar = {
     arg: arg,
     has: has,
     _throw: _throw,
+    tones: tones,
     _wran: _wran,
     dealUpLowFirst: dealUpLowFirst,
     removeTone: removeTone,
@@ -96,9 +101,16 @@ var cnchar = {
   }
 };
 
-if (typeof window !== 'undefined') {
-  window.cnchar = window.CnChar = cnchar;
+function init() {
+  initStrProto();
+  initCnchar(cnchar);
+  initSpellToWord(cnchar);
+  initStrokeToWord(cnchar);
+
+  if (typeof window !== 'undefined') {
+    window.cnchar = window.CnChar = cnchar;
+  }
 }
 
-initCnchar(cnchar);
+init();
 module.exports = cnchar;

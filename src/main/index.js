@@ -1,6 +1,8 @@
-var version = require('./version');
-var {spell, stroke, arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar, checkArgs, initCnchar} = require('./tool');
-var dict = require('./dict');
+let version = require('./version');
+let {spell, tones, stroke, arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar, checkArgs, initCnchar} = require('./tool');
+let dict = require('./dict');
+let initSpellToWord = require('./spellToWord');
+let initStrokeToWord = require('./strokeToWord');
 
 function _spell (...args) {
     return spell(dict.spell, args);
@@ -9,7 +11,7 @@ function _stroke (...args) {
     return stroke(dict.stroke, args);
 }
 
-function init () {
+function initStrProto () {
     String.prototype.spell = function (...args) {
         return _spell(this, ...args);
     };
@@ -24,7 +26,6 @@ function use (...plugins) {
         }
     });
 }
-init();
 
 let cnchar = {
     version,
@@ -37,7 +38,7 @@ let cnchar = {
     },
     plugins: [],
     use,
-    _: {arg, has, _throw, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar, checkArgs, dict: {}},
+    _: {arg, has, _throw, tones, _wran, dealUpLowFirst, removeTone, sumStroke, isCnChar, checkArgs, dict: {}},
     type: {
         spell: arg,
         stroke: {
@@ -46,8 +47,16 @@ let cnchar = {
     }
 };
 
-if (typeof window !== 'undefined') {
-    window.cnchar = window.CnChar = cnchar;
+function init () {
+    initStrProto();
+    initCnchar(cnchar);
+    initSpellToWord(cnchar);
+    initStrokeToWord(cnchar);
+    if (typeof window !== 'undefined') {
+        window.cnchar = window.CnChar = cnchar;
+    }
 }
-initCnchar(cnchar);
+
+init();
+
 module.exports = cnchar;

@@ -1,5 +1,5 @@
 
-const tones   = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜnńňǹ';
+const tones = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ*ńňǹ'; // * 表示n的一声
 const noTones = 'aoeiuün';
 let defDict = require('./spell-default.json');
 function _throw (err) {
@@ -8,7 +8,7 @@ function _throw (err) {
 function _wran (err) {
     console.warn('CnChar Warning:' + err);
 }
-var arg = {
+let arg = {
     array: 'array',
     low: 'low',
     up: 'up',
@@ -16,7 +16,7 @@ var arg = {
     poly: 'poly',
     tone: 'tone',
 };
-var _cnchar = null;
+let _cnchar = null;
 function initCnchar (cnchar) {
     _cnchar = cnchar;
 }
@@ -40,7 +40,7 @@ function spell (dict, args) {
     for (let sp in dict) { // 遍历拼音
         let ds = dict[sp];
         let pos = ds[0];
-        for (var i = 0; i < strs.length; i++) { // 遍历字符数组
+        for (let i = 0; i < strs.length; i++) { // 遍历字符数组
             let ch = strs[i];
             if (isCnChar(ch)) { // 如果是汉字
                 let index = ds.indexOf(ch);
@@ -53,7 +53,7 @@ function spell (dict, args) {
                         res[i].push(ssp.res);
                         let dsNew = ds;
                         let n = dsNew.match(new RegExp(ch, 'g')).length;
-                        for (var k = 1; k < n; k++) {
+                        for (let k = 1; k < n; k++) {
                             dsNew = dsNew.substr(index + 2);
                             index = dsNew.indexOf(ch);
                             res[i].push(getSpell(sp, dsNew, index, poly, tone, pos).res);
@@ -61,7 +61,7 @@ function spell (dict, args) {
                     } else {
                         if (ssp.isPolyWord) { // 是多音字 不是多音字模式
                             if (defDict[ch]) { // 设置了多音字的默认拼音
-                                ssp.res = removeTone(defDict[ch], tone); // 默认有音调
+                                ssp.res = removeTone(defDict[ch], tone).spell; // 默认有音调
                             }
                         }
                         res[i] = ssp.res;
@@ -151,17 +151,23 @@ function getSpell (spell, str, index, isPoly, isTone, pos) {
     return res;
 }
 
-function removeTone (str, tone) {
+// tone=false : 根据有音调的拼音获得无音调的拼音和音调
+// tone=true : 返回原拼音
+function removeTone (spell, tone) {
     if (tone) {
-        return str;
+        return {spell};
     }
-    for (var i = 0; i < str.length; i++) {
-        let index = tones.indexOf(str[i]);
+    for (let i = 0; i < spell.length; i++) {
+        let index = tones.indexOf(spell[i]);
         if (index !== -1) { // 命中
-            return str.substr(0, i) + noTones[Math.floor(index / 4)] + str.substr(i + 1);
+            return {
+                spell: spell.substr(0, i) + noTones[Math.floor(index / 4)] + spell.substr(i + 1),
+                tone: (index % 4) + 1,
+                index: i + 1
+            };
         }
     }
-    return str;
+    return {spell, tone: 0, index: -1};
 }
 
 function setTone (spell, index, tone) {
@@ -171,7 +177,6 @@ function setTone (spell, index, tone) {
     let p = spell[index];
     return spell.replace(p, tones[noTones.indexOf(p) * 4 + (tone - 1)]);
 }
-
 
 // 笔画数
 function stroke (dict, args) {
@@ -210,7 +215,7 @@ function sumStroke (strs) {
 
 // stroke 所有参数 ["letter", "shape", "count", "name", "detail", "array", "order", "simple"]
 //
-var _hasCheck = false;
+let _hasCheck = false;
 function checkArgs (type, args, jumpNext) {
     if (!_cnchar.check) {
         return;
@@ -220,18 +225,18 @@ function checkArgs (type, args, jumpNext) {
         return;
     }
     if (jumpNext) { _hasCheck = true; }
-    var useless = [];
-    var t = _cnchar.type;
-    for (var i = args.length - 1; i >= 0; i--) {
+    let useless = [];
+    let t = _cnchar.type;
+    for (let i = args.length - 1; i >= 0; i--) {
         let arg = args[i];
         if (!t[type][arg]) {
             useless.push(arg);
             args.splice(i, 1);
         }
     }
-    var ignore = [];
-    var redunt = [];
-    var check = (name, arr) => {
+    let ignore = [];
+    let redunt = [];
+    let check = (name, arr) => {
         if (typeof name === 'object') {
             name.forEach((item) => {
                 check(item, arr);
@@ -241,6 +246,9 @@ function checkArgs (type, args, jumpNext) {
         arr = arr || ignore;
         if (has(args, name)) { arr.push(name); }
     };
+    if (_cnchar.plugins.indexOf('trad') === -1 && has(args, 'simple')) {
+        ignore.push('simple');
+    }
     if (type === 'spell') {
         if (has(args, 'up') && has(args, 'low')) {
             ignore.push('low');
@@ -270,9 +278,15 @@ function checkArgs (type, args, jumpNext) {
             check('count', redunt);
         }
     } else if (type === 'orderToWord') {
-        if (_cnchar.plugins.indexOf('trad') === -1 && has(args, 'simple')) {
-            ignore.push('simple');
+        if (has(args, 'match')) {
+            check(['match-order', 'contain', 'start']);
+        } else if (has(args, 'match-order')) {
+            check(['contain', 'start']);
+        } else if (has(args, 'contain')) {
+            check(['start']);
         }
+    } else if (type === 'strokeToWord') {
+    } else if (type === 'spellToWord') {
     }
     warnArgs(useless, '无效', type);
     warnArgs(ignore, '被忽略', type);
@@ -284,5 +298,5 @@ function warnArgs (arr, txt, type) {
     }
 }
 module.exports = {
-    _throw, _wran, arg, isCnChar, has, spell, stroke, dealUpLowFirst, removeTone, sumStroke, checkArgs, initCnchar
+    _throw, _wran, arg, isCnChar, has, spell, stroke, dealUpLowFirst, removeTone, sumStroke, checkArgs, initCnchar, tones
 };

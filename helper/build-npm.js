@@ -52,7 +52,7 @@ function task () {
 }
 
 function copyToNPM () {
-    gulp.src(['src/main/*.json', 'README.md', 'LICENSE'])
+    gulp.src(['src/main/*.json', 'src/main/index.d.ts', 'README.md', 'LICENSE'])
         .pipe(gulp.dest('npm/cnchar'));
 
     gulp.src(['src/plugin/order/*.json', 'README.md', 'LICENSE'])

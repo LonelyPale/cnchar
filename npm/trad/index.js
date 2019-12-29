@@ -65,9 +65,14 @@ function main(cnchar) {
 
 
   _ = cnchar._;
+  _.convert = convert;
 
   _.dict.getTradOrders = function () {
     return orderDict;
+  };
+
+  _.dict.getTradCount = function () {
+    return countDict;
   };
 }
 

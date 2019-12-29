@@ -29,7 +29,9 @@ function main (cnchar) {
     // _p.convertToSimple = function(){return convert.toSimple(this);}
     // _p.convertToSpark = function(){return convert.toSpark(this);}
     _ = cnchar._;
+    _.convert = convert;
     _.dict.getTradOrders = function () {return orderDict;};
+    _.dict.getTradCount = function () {return countDict;};
 }
 
 function init (cnchar) {

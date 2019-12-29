@@ -2,7 +2,8 @@
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var tones = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜnńňǹ';
+var tones = 'āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜ*ńňǹ'; // * 表示n的一声
+
 var noTones = 'aoeiuün';
 
 var defDict = require('./spell-default.json');
@@ -82,7 +83,7 @@ function spell(dict, args) {
               // 是多音字 不是多音字模式
               if (defDict[ch]) {
                 // 设置了多音字的默认拼音
-                ssp.res = removeTone(defDict[ch], tone); // 默认有音调
+                ssp.res = removeTone(defDict[ch], tone).spell; // 默认有音调
               }
             }
 
@@ -190,23 +191,35 @@ function getSpell(spell, str, index, isPoly, isTone, pos) {
   }
 
   return res;
-}
+} // tone=false : 根据有音调的拼音获得无音调的拼音和音调
+// tone=true : 返回原拼音
 
-function removeTone(str, tone) {
+
+function removeTone(spell, tone) {
   if (tone) {
-    return str;
+    return {
+      spell: spell
+    };
   }
 
-  for (var i = 0; i < str.length; i++) {
-    var index = tones.indexOf(str[i]);
+  for (var i = 0; i < spell.length; i++) {
+    var index = tones.indexOf(spell[i]);
 
     if (index !== -1) {
       // 命中
-      return str.substr(0, i) + noTones[Math.floor(index / 4)] + str.substr(i + 1);
+      return {
+        spell: spell.substr(0, i) + noTones[Math.floor(index / 4)] + spell.substr(i + 1),
+        tone: index % 4 + 1,
+        index: i + 1
+      };
     }
   }
 
-  return str;
+  return {
+    spell: spell,
+    tone: 0,
+    index: -1
+  };
 }
 
 function setTone(spell, index, tone) {
@@ -306,6 +319,10 @@ function checkArgs(type, args, jumpNext) {
     }
   };
 
+  if (_cnchar.plugins.indexOf('trad') === -1 && has(args, 'simple')) {
+    ignore.push('simple');
+  }
+
   if (type === 'spell') {
     if (has(args, 'up') && has(args, 'low')) {
       ignore.push('low');
@@ -338,10 +355,14 @@ function checkArgs(type, args, jumpNext) {
       check('count', redunt);
     }
   } else if (type === 'orderToWord') {
-    if (_cnchar.plugins.indexOf('trad') === -1 && has(args, 'simple')) {
-      ignore.push('simple');
+    if (has(args, 'match')) {
+      check(['match-order', 'contain', 'start']);
+    } else if (has(args, 'match-order')) {
+      check(['contain', 'start']);
+    } else if (has(args, 'contain')) {
+      check(['start']);
     }
-  }
+  } else if (type === 'strokeToWord') {} else if (type === 'spellToWord') {}
 
   warnArgs(useless, '无效', type);
   warnArgs(ignore, '被忽略', type);
@@ -366,5 +387,6 @@ module.exports = {
   removeTone: removeTone,
   sumStroke: sumStroke,
   checkArgs: checkArgs,
-  initCnchar: initCnchar
+  initCnchar: initCnchar,
+  tones: tones
 };

@@ -1,7 +1,7 @@
-var orders = require('./stroke-order-jian.json');
-var strokeTable = require('./stroke-table.json');
+let orders = require('./stroke-order-jian.json');
+let strokeTable = require('./stroke-table.json');
 
-let arg = {all: 'all', simple: 'simple'};
+let arg = {start: 'start', contain: 'contain', match: 'match', matchorder: 'matchorder', simple: 'simple', trad: 'trad', array: 'array'};
 let _ = {};// 工具方法
 
 function initOrderToWord (cnchar) {
@@ -13,10 +13,10 @@ function initOrderToWord (cnchar) {
 function orderToWord (...args) {
     let orderArr = args[0];
     args = args.splice(1);
-    let matchAll = _.has(args, arg.all);
-    // matchAll 表示是否匹配已该笔划序开头的所以汉字
-    if (!orderArr instanceof Array) {
-        throw new Error('orderToWord: 输入必须是笔画名数组');
+    if (typeof orderArr === 'string') {
+        orderArr = orderArr.split(' ');
+    } else if (!orderArr instanceof Array) {
+        throw new Error('orderToWord: 输入必须是笔画名数组或空格分隔的字符串');
     }
     _.checkArgs('orderToWord', args);
     let errorOrder = [];
@@ -33,23 +33,76 @@ function orderToWord (...args) {
         return [];
     }
     let res = [];
-    res = base(res, letters, matchAll, orders);
-    if (!_.has(args, arg.simple) && _.dict.getTradOrders) {
-        res = base(res, letters, matchAll, _.dict.getTradOrders());
+    let argRes = {
+        start: _.has(args, arg.start),
+        match: _.has(args, arg.match),
+        matchorder: _.has(args, arg.matchorder),
+        contain: _.has(args, arg.contain),
+        simple: _.has(args, arg.simple),
+        trad: _.has(args, arg.trad),
+    };
+    if (!argRes.simple && !argRes.trad) {
+        argRes.simple = argRes.trad = true;
     }
-    return res;
+    if (argRes.simple) {
+        base(res, letters, argRes, orders); // 简体
+    }
+    if (argRes.trad && _.dict.getTradOrders) {
+        base(res, letters, argRes, _.dict.getTradOrders()); // 繁体
+    }
+    if (_.has(args, arg.array)) {
+        return res;
+    }
+    return res.join('');
 }
 
 
-function base (res, letters, matchAll, dict) {
-    if (matchAll) {
-        for (var k in dict) { // 写两个 for 为了提高效率
+function base (res, letters, args, dict) {
+    // 写多个for循环减少if判断
+    if (args.match) { // match 表示只要包含笔画就输出
+        for (let k in dict) {
+            let notcontain = false;
+            for (let i = 0; i < letters.length; i++) {
+                if (dict[k].indexOf(letters[i]) === -1) {
+                    notcontain = true;
+                    break;
+                }
+            }
+            if (!notcontain) {
+                res.push(k);
+            }
+        }
+    } else if (args.matchorder) { // match-order 表示不仅包含所有笔画 而且笔画是按顺序的
+        for (let k in dict) {
+            let notcontain = false;
+            let orders = dict[k];
+            for (let i = 0; i < letters.length; i++) {
+                let index = orders.indexOf(letters[i]);
+                if (index === -1) {
+                    notcontain = true;
+                    break;
+                } else {
+                    orders = orders.substr(index + 1);
+                }
+            }
+            if (!notcontain) {
+                res.push(k);
+            }
+        }
+    } else if (args.contain) { // contain 包含笔画顺序壁画顺序开头
+        for (let k in dict) {
+            if (dict[k].indexOf(letters) !== -1) {
+                res.push(k);
+            }
+        }
+    } else if (args.start) { // start 表示匹配所有以壁画顺序开头的汉字
+        for (let k in dict) {
             if (dict[k].indexOf(letters) === 0) {
                 res.push(k);
             }
         }
-    } else {
-        for (var k in dict) {
+    } else { // 默认是严格匹配笔画序序列
+        for (let k in dict) {
             if (dict[k].length > letters.length) {
                 break;
             }
@@ -64,8 +117,8 @@ function base (res, letters, matchAll, dict) {
 function init () {
     orderToWord.orders = {};
     orderToWord._base = base;
-    for (var k in strokeTable) {
-        var single = strokeTable[k];
+    for (let k in strokeTable) {
+        let single = strokeTable[k];
         // let name = single.name.split('(')[0]; // 有别名时 只取第一个
         let name = single.name; // 有别名时 只取第一个
         let shape = single.shape;
