@@ -21,7 +21,7 @@ module.exports = {
     }
   },
   "globals": {
-    "window": true,
+    "window": true
   },
   "rules": {
     "no-extend-native": 0,
