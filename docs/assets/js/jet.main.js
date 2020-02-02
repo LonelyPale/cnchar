@@ -4496,7 +4496,7 @@
     function _addAssetsPath (src) {
         if (Jet.config.assetsPath) {
             var path = _rmPathSplit(Jet.config.assetsPath);
-            if (src.indexOf(path) === 0) {
+            if (src.indexOf(path) === 0 || src.indexOf('/' + path) === 0) {
                 return src;
             }
             if (src[0] !== '/') {
@@ -4658,7 +4658,8 @@
         _initValidAndLang: _initValidAndLang,
         _babel: _babel,
         _less: _less,
-        _addScopedCss: _addScopedCss
+        _addScopedCss: _addScopedCss,
+        _rmPathSplit: _rmPathSplit
     };
 })();
 

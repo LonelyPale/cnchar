@@ -34,6 +34,7 @@
         if ('base' in opt) {
             Jet.router.setBase(opt.base, opt.trueBase);
         }
+        Jet.router.initAssetsConf();
         if (!opt.history) {
             Jet.router.base += '/#';
         }
@@ -149,12 +150,29 @@
             });
         },
         setBase: function (base, isTrueBase) {
-            Jet.router.base = base;
+            base = C._rmPathSplit(base);
+            Jet.router.originBase = base;
+            if (base === '') {
+                Jet.router.base = base;
+            } else {
+                Jet.router.base = '/' + base;
+            }
             if (isTrueBase === true) {
-                Jet.router.trueBase = true;
-                for (var k in Jet.router.conf) {
-                    Jet.router.conf[k] = base + Jet.router.conf[k];
+                if (Jet.config.assetsPath) {
+                    Jet.config.assetsPath = '/' + base + '/' + C._rmPathSplit(Jet.config.assetsPath);
+                } else {
+                    Jet.config.assetsPath = '/' + base;
                 }
+                Jet.router.trueBase = true;
+            } else {
+                if (Jet.config.assetsPath) {
+                    Jet.config.assetsPath = '/' + C._rmPathSplit(Jet.config.assetsPath);
+                }
+            }
+        },
+        initAssetsConf: function () {
+            for (var k in Jet.router.conf) {
+                Jet.router.conf[k] = Jet.config.assetsPath + Jet.router.conf[k];
             }
         },
         __xhr: null,
