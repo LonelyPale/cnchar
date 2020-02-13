@@ -1,11 +1,11 @@
-Jet.define('bb',function(){
-    var b=3;
+Jet.define('bb', function () {
+    var b = 3;
     this.export({
-        $init:function(){
-            console.log('b:'+b);
+        $init: function () {
+            console.log('b:' + b);
         },
-        b:function(){
-            return b
+        b: function () {
+            return b;
         }
-    })
-})
+    });
+});

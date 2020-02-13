@@ -8,4 +8,7 @@ docs/assets/js/jet.min.js
 docs/assets/js/jet-lib-doing
 docs/assets/js/jet-lib/babel.js
 docs/assets/js/jet-lib/less.js
-index2.html
+index_new.html
+index_old.html
+docs/src/html
+docs/src/root.html

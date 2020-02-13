@@ -389,7 +389,43 @@ pre{
 .menu-bar-cover{
   display: none;
 }
+
+table{
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+  border-collapse: collapse;
+  border: 1px solid #aaa;
+  border-spacing: 2px;
+}
+tr{
+
+}
+th,td{
+  display: table-cell;
+  text-align: center;
+  font-size: 15px;
+}
+th{
+  font-weight: bold;
+  vertical-align: baseline;
+  padding: 6px;
+  background-color: #3F3F3F;
+  border: 1px solid #3F3F3F;
+  color: #fff;
+}
+td{
+  vertical-align: text-top;
+  padding: 5px;
+  border: 1px solid #aaa;
+}
+
 @media screen and (max-width: 600px) {
+  
+  th,td{
+    font-size: 12px;
+    padding:2px;
+  }
   .APP_Loading.router-out{
     margin-left: -25px;
   }

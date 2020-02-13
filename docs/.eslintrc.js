@@ -3,5 +3,7 @@ module.exports = {
     "Jet": true,
     "JUI": true,
     "__jet": true,
+    "$J": true,
+    "JET": true
   }
 }

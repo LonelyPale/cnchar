@@ -6,7 +6,7 @@
 //     ip: 'http://xxxx.xxx.xxx/xxx',//定义请求的相同部分
 //     /**
 //      * .get('xxx',{},()=>{
-//      * 
+//      *
 //      * })
 //      */
 //     get(url, params, call, ecall) {
@@ -20,7 +20,7 @@
 //     },
 //     /**
 //      * .post('xxx',{},()=>{
-//      * 
+//      *
 //      * })
 //      */
 //     post(url, data, call, ecall) {
@@ -104,7 +104,7 @@
 //             return b
 //         }
 //     },
-//     /* 
+//     /*
 //     cookie方法：
 //     * .cookie('a',1) :存储一个值
 //     * .cookie('a') :获取一个值

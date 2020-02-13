@@ -49,6 +49,7 @@ Jet.use.all(
     // eslint-disable-next-line no-unused-vars
     function (times) {
         // Jet.router.setBase('/jet');
+        JUI.CODE.theme = 'dark';
         Jet.lang.use(['cn', 'en']);
         Jet.use('router-config', function () {
             Jet.res.define({

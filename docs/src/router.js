@@ -15,7 +15,6 @@ Jet.router.use({
         '/intro': {
             name: '/intro/index',
             children: {
-                '/img': '/intro/img',
                 '/install': '@pageInstall',
                 '/contents': '/intro/contents',
                 '/html': '/intro/html',
@@ -28,14 +27,11 @@ Jet.router.use({
                 '/e': '/intro/eg',
             }
         },
-        '/bind': {
-            name: '/bind/index',
+        '/cnchar': {
+            name: '/cnchar/index',
             children: {
-                '/j': '/bind/j',
-                '/init': '/bind/init',
-                '/type': '/bind/type',
-                '/array': '/bind/array',
-                '/grammer': '/bind/grammer',
+                '/spell': '/cnchar/spell',
+                '/stroke': '/cnchar/stroke',
             }
         },
         '/attr': {

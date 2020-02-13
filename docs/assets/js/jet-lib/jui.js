@@ -3287,7 +3287,7 @@
         this._value = opt.value || opt.ele.attr('value');
         this.ele = opt.ele || null;
         this.call = opt.call || null;
-        this.lineHeight = 22;
+        this.lineHeight = 20;
         var _this = this;
         Object.defineProperty(_this, 'value', {
             configurable: true,
@@ -3328,6 +3328,7 @@
             }
         };
         item.$jui = _jui;
+        this.fontSize(this.fontSize()); // 初始化lineheight
     };
     JUI.CODE._name = 'j-code';
     JUI.CODE.init = function (item) {
@@ -3351,7 +3352,10 @@
                 if (k == 13 || k == 9) {// 回车和tab键
                     _jui.value = this.value;
                 }
-                if (k == 38 || k == 40 || k == 13 || k == 8) {// 上下 回车 删除
+                if (
+                    k === 38 || k === 40 || k === 13 || k === 8 ||// 上下 回车 删除
+                    (e.ctrlKey && (k === 86 || k === 88 || k === 89 || k === 90)) // ctrl + v x y z
+                ) {
                     _activeLine.call(_jui);
                 }
             },
@@ -3378,6 +3382,13 @@
     }
     function _initFrame (item, jui) {
         if (item.findClass('code_editor').length == 0) {// 防止两次初始化
+            if (item.hasAttr('dark')) {
+                if (item.attr('dark') !== 'false') {
+                    item.addClass('j-c-dark');
+                }
+            } else if (JUI.CODE.theme === 'dark') {
+                item.addClass('j-c-dark');
+            }
             var cont = item.html();// .trim();
             if (!item.hasAttr('jui-code-trim') || item.attr('jui-code-trim') !== 'false') {
                 while (cont[0] == '\n') {
@@ -3427,7 +3438,7 @@
             }
             if (w == 'auto') {
                 jui.view1.css('width', h);
-                jui.view2.css('width', h);
+                jui.view2.data('width', w).css('width', h);
                 jui.codearea.data('width', 'auto').css('overflow-x', 'hidden').css('width', w); ;
             } else {
                 jui.view1.css('width', '100%');
@@ -3540,7 +3551,7 @@
         fontsizedown: ['fontSizeDown', '缩小字体', 'zoom-out'],
         fullscreen: ['fullScreen', '全屏显示', 'expand-full'], // collapse-full
         fix: ['fix', '修复重影问题', 'wrench'],
-        clearcolor: ['clearColor', '清除颜色', 'paint-brush'],
+        changeTheme: ['changeTheme', '切换主题', 'paint-brush'],
         clearcode: ['clearCode', '清除代码', 'trash'],
         resetcode: ['resetCode', '重置代码', 'undo'],
         copy: ['copy', '复制代码', 'copy'],
@@ -3563,10 +3574,11 @@
             this.view2.css('left', '0px');
         }
     };
-    JUI.CODE.prototype.clearColor = function () {
-        this.codearea.toggleClass('bg');
-        this.view1.fadeToggle();
-        this.view2.fadeToggle();
+    JUI.CODE.prototype.changeTheme = function () {
+        this.ele.toggleClass('j-c-dark');
+        // this.codearea.toggleClass('bg');
+        // this.view1.fadeToggle();
+        // this.view2.fadeToggle();
     };
     JUI.CODE.prototype.clearCode = function () {
         JUI.confirm('是否确认清空代码(该操作不可撤销)？', function () {
@@ -3600,6 +3612,9 @@
         this.ele.toggleClass(_ce_full);
         obj.toggleClass('icon-collapse-full');
         $J.body().toggleClass(_ce_hidden);
+        if (!this.ele.hasClass(_ce_full)) {
+            _checkSizeAuto(this.ele.findClass('code_editor'));
+        }
     };
     JUI.CODE.prototype.fontSizeUp = function () {
         var n = this.fontSize();
@@ -3632,14 +3647,21 @@
     JUI.CODE.prototype.fontSize = function (size) {
         var par = this.ele;
         if (size !== undefined) {
-            this.lineHeight = size + 4;
-            this.setHeight();
-            if (this.ele.attr('height') === 'auto') {
-                _geneViewCode.call(this);
-            }
             par.css({
                 'font-size': size + 'px',
-                'line-height': this.lineHeight + 'px'
+                'line-height': (size + 4) + 'px'
+            });
+            var _this = this;
+            countLineHeight(par.findClass('_bottom'), function (lineHeight) {
+                // _this.lineHeight = size + 4;
+                _this.lineHeight = lineHeight;
+                if (_this.ele.attr('height') === 'auto') {
+                    _geneViewCode.call(_this);
+                }
+                par.css({
+                    'line-height': _this.lineHeight + 'px'
+                });
+                _this.setHeight();
             });
         } else {
             var fs = par.css('font-size');
@@ -3655,6 +3677,18 @@
             throw new Error('extend:参数类型错误');
         }
     };
+    function countLineHeight (el, cb) {
+        setTimeout(() => {
+            var length = 100, strLine = '';
+            for (var i = 0; i < length; i++) {strLine += '1\n';}
+            var content = el.html();
+            el.html(strLine);
+            var padding = el.css('padding').replaceAll('px', '').split(' ');
+            var lineHeight = (el.offsetHeight - (parseInt(padding[0])) - (parseInt(padding[2]))) / length; // 50是padding
+            el.html(content);
+            cb(lineHeight);
+        }, 10);
+    }
     JUI.CODE.tab = '\t';// \t
     function _tabEnable (obj) {
         obj.on('keydown', _keyDown, true);
@@ -3801,21 +3835,125 @@
     // moveCursor();.replaceAll("<","&lt;").replaceAll(">","&gt;")
         var val = this.codearea.val();
         var html = val.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + ' ';// 为了不让最后一个字符是换行
-        html = _geneHtmlElement(html);
-        html = _geneKey(html);
-        html = _geneFun(html);
-        html = _geneDefineFun(html);
-        html = _geneNumber(html);
-        html = _geneString(html);
-        html = _geneNote(html);
         html = _geneHtmlNote(html);
+        html = _geneHtmlElement(html);
+        // html = _geneKey(html);
+        // html = _geneFun(html);
+        // html = _geneDefineFun(html);
+        // html = _geneNumber(html);
+        html = _geneString(html);
+        // html = _geneNote(html);
         _getView(this.ele, 1).html(html);
 
-        var htmlSign = _geneSign(val.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + ' ');
+        // var htmlSign = _geneSign(val.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + ' ');
+        // _getView(this.ele, 0).html(htmlSign);
+        var htmlSign = renderColor(val.replaceAll('<', '&lt;').replaceAll('>', '&gt;') + ' ');
         _getView(this.ele, 0).html(htmlSign);
         _checkSizeAuto(this.codearea);
         _geneLine.call(this);
     }
+
+    var keyword1 = ['var', 'new', 'const', 'let', 'typeof', 'in', 'function', 'this', 'true', 'false', 'null', 'undefined', 'async', 'delete', 'class', 'extends']; // var
+    var keyword2 = ['return', 'for', 'while', 'else if', 'if', 'else', 'switch', 'case', 'default', 'break', 'continue', 'await', 'yield', 'try', 'catch', 'finally', 'throw', 'export', 'import', 'from']; // return
+    var keyword3 = ['console', 'window', 'document', 'Date', 'Array', 'Object', 'Boolean', 'Number', 'String', 'alert', 'RegExp', 'Function', 'JSON', 'Date']; // Date
+    // var sign = ['"', "'", "`", ",", ";", "\\:", "\\.", "\\(", "\\)", "\\{", "\\}", "\\[", "\\]", "\\+", "\\-", "\\*", "\\/", "_", "\\|", "\\", "\\&", "\\%", "\\$", "\\!", "\\<", "\\=", "\\>",  "\\^", "~", "@", "#"];
+    var sign = ['\\/', '\\', '\\(', '\\)', '\\[', '\\]', '\\{', '\\}', '\\+', '\\-', '\\*', '\\=', ',', '\\.', ':', '%', '_', '\\$', '@', '#', '\\^', '\\|', '!', '~'];
+
+    var signBegin = '(^|(&lt;)|(&lt;)|[\\n\\t;<> ' + sign.join('') + '])';
+    var signEnd = '([' + sign.join('') + '\\n;<> ]|(&lt;)|(&lt;)|$)';
+
+    // var punc = ''
+    // var reg = {
+    //     str:1,
+    //     comment:1,
+    //     keyword(){
+
+    //     }
+    // }
+
+
+    function sp (str, cls) {
+        return '<span class="j-c-js-' + cls + '">' + str + '</span>';
+    }
+
+    function _replace (str, reg, cls, word) {
+        return str.replace(reg, function (s) {
+            if (typeof word === 'string') {
+                return s.replace(word, sp(word, cls));
+            } else if (typeof word === 'object') {
+                return s.replace(word, function (s2) {
+                    return sp(s2, cls);
+                });
+            }
+            return sp(s, cls);
+        });
+    }
+
+    function replace (str, reg, cls, word) {
+        if (str.indexOf('</span>') !== -1) {
+            var _regExp = (typeof reg === 'string') ? regExp(reg) : reg[0];
+            str = str.replace(_regExp, function (s1) {
+            // 只有字符串
+                var _regExp2 = (typeof reg === 'string') ? new RegExp(reg, 'g') : reg[1];
+                return _replace(s1, _regExp2, cls, word);
+            });
+        } else {
+            var _regExp = (typeof reg === 'string') ? new RegExp(reg, 'g') : reg[1];
+            str = _replace(str, _regExp, cls, word);
+        }
+        return str;
+    }
+
+    function regExp (reg) {
+        return new RegExp(reg + '(?![^<]*>|[^<>]*<\/)', 'g');
+    }
+    function renderColor (text) {
+    // var html = '';
+    // debugger
+        // text = text.replace('\t', '    ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        text = pipe(text, [
+        // /("(?:[^"\\]|\.)*")|(`(?:[^"\\]|\.)*`)|('(?:[^"\\]|\.)*')/g
+        // ['("(?:[^"\\]|\\.)*")|(\'(?:[^\'\\]|\\.)*\')|(`((?:[^`\\]|\\.)|\n)*`)','str'],// 有bug：需要不包含字符串本身
+            [
+                [
+                    /("(?:[^"\\]|\\.)*")|(\'(?:[^\'\\]|\\.)*\')|(`((?:[^`\\]|\\.)|\n)*`)(?![^<]*>|[^<>]*<\/)/g,
+                    /("(?:[^"\\]|\\.)*")|(\'(?:[^\'\\]|\\.)*\')|(`((?:[^`\\]|\\.)|\n)*`)/g
+                ],
+                'str'
+            ], // 有bug：需要不包含字符串本身
+            ['(//.*(\n|$))|(\\/\\*(.|\n)*?\\*\\/)', 'cm'],
+            ['\\/[a-zA-Z0-9' + sign.slice(1).join('') + ' ]+\\/g?', 'reg'], // 正则
+            grArr(keyword1, 'k1'),
+            grArr(keyword1, 'k1'), // 重复是为了解决相邻同类元素 无法被匹配 比如 function function 只有第一个function被匹配，因为他们共享一个空格
+            grArr(keyword2, 'k2'),
+            grArr(keyword2, 'k2'),
+            grArr(keyword3, 'k3'),
+            grArr(keyword3, 'k3'),
+            [signBegin + '[0-9]+(\\.?[0-9]+)?' + signEnd, 'num', /[0-9]+(.?[0-9]+)?/g],
+            // [signBegin+'[0-9]+'+signEnd,'num',/[0-9]+/g],
+            [signBegin + '[a-zA-Z_\\$]+[a-zA-Z_\\$0-9]*\\(', 'f', new RegExp('[a-zA-Z_\\$]+[a-zA-Z_\\$0-9]*', 'g')],
+            ['[' + sign.join('') + ']', 'punc', new RegExp('[' + sign.join('') + ']', 'g')],
+        ]);
+        text = text.replace(/\&lt;/g, sp('<', 'punc')).replace(/\&gt;/g, sp('>', 'punc')).replace(/;/g, sp(';', 'punc')).replace(/&/g, sp('&', 'punc'));
+    
+        return text;
+    }
+
+    // var signEnd = '[ \\(\\.\\n]';
+
+    function grArr (array, cls) {
+        return [signBegin + '((' + array.join(')|(') + '))' + signEnd, cls, new RegExp('((' + array.join(')|(') + '))', 'g')];
+    }
+
+    function pipe (text, array) {
+        for (var i = 0; i < array.length; i++) {
+            array[i].unshift(text);
+            text = replace.apply(null, array[i]);
+        }
+        return text;
+    }
+
     function _getView (obj, i) {
         if (i != undefined) {
             return obj.child(i + 1);
@@ -3827,7 +3965,7 @@
         _checkSizeAutoPart(obj, 'width');
     }
     function _checkSizeAutoPart (obj, s) {
-        if (obj.data(s) == 'auto') {
+        if (obj.data(s) == 'auto' && !obj.parent().hasClass(_ce_full)) {
             var n = obj.prev().css(s);
             if (n == 'auto') {
                 setTimeout(function () { obj.css(s, obj.prev().css(s)); }, 0);
@@ -3836,65 +3974,86 @@
             }
         }
     }
+    // function _checkSizeAutoPart (obj, s) {
+    //     if (obj.data(s) === 'auto' && !obj.parent().hasClass(_ce_full)) {
+    //         var n = obj.prev().data(s);
+    //         if (n == 'auto') {
+    //             obj.css(s, obj.prev().css(s));
+    //         } else {
+    //             obj.css(s, n);
+    //         }
+    //     }
+    // }
 
-    function _geneSign (html) {
-        _code._sign.each(function (a) {
-            html = html.replaceAll(a, '<cd_sign>' + (a.has('\\') ? a.substring(1) : a) + '</cd_sign>');
-        });
-        return html;
-    }
-    function _geneDefineFun (html) {// js
-        var dFun = html.match(/(function)(.*?)(<)/g);
-        if (dFun != null) {
-            dFun.each(function (a, i) {
-                dFun[i] = a.substring(a.lastIndexOf(' ') + 1, a.length - 1);
-            });
-            dFun.sortByAttr('length', false);
-            dFun.each(function (a) {
-                if (a != '' && a != 'function') {// 匿名函数排除掉
-                    html = html.replaceAll(a, '<cd_dfun>' + a + '</cd_dfun>');
-                }
-            });
-        }
-        return html;
-    }
-    var _funReg = /(\.)(.*?)(\()/g;
-    function _geneFun (html) {
-        var arr = html.match(_funReg);
-        if (arr != null) {
-            arr.each(function (a, i) {
-                arr[i] = arr[i].replace(a, a[0] + '<cd_fun>' + a.substring(1, a.length - 1) + '</cd_fun>(');
-            });
-            return html.replaceAll(_funReg, arr);
-        }
-        return html;
-    }
-    function _geneKey (html) {
-        _code._key.each(function (a) {
-            html = html.replaceAll(a, '<cd_key>' + a + '</cd_key>');
-        });
-        return html;
-    }
+    // function _geneSign (html) {
+    //     _code._sign.each(function (a) {
+    //         html = html.replaceAll(a, '<cd_sign>' + (a.has('\\') ? a.substring(1) : a) + '</cd_sign>');
+    //     });
+    //     return html;
+    // }
+    // function _geneDefineFun (html) {// js
+    //     var dFun = html.match(/(function)(.*?)(<)/g);
+    //     if (dFun != null) {
+    //         dFun.each(function (a, i) {
+    //             dFun[i] = a.substring(a.lastIndexOf(' ') + 1, a.length - 1);
+    //         });
+    //         dFun.sortByAttr('length', false);
+    //         dFun.each(function (a) {
+    //             if (a != '' && a != 'function') {// 匿名函数排除掉
+    //                 html = html.replaceAll(a, '<cd_dfun>' + a + '</cd_dfun>');
+    //             }
+    //         });
+    //     }
+    //     return html;
+    // }
+    // var _funReg = /(\.)(.*?)(\()/g;
+    // function _geneFun (html) {
+    //     var arr = html.match(_funReg);
+    //     if (arr != null) {
+    //         arr.each(function (a, i) {
+    //             arr[i] = arr[i].replace(a, a[0] + '<cd_fun>' + a.substring(1, a.length - 1) + '</cd_fun>(');
+    //         });
+    //         return html.replaceAll(_funReg, arr);
+    //     }
+    //     return html;
+    // }
+    // function _geneKey (html) {
+    //     _code._key.each(function (a) {
+    //         html = html.replaceAll(a, '<cd_key>' + a + '</cd_key>');
+    //     });
+    //     return html;
+    // }
     function _geneHtmlElement (html) {
-        return _geneCommon(html, /(&lt;)(.*?)(&gt;)/g, 'cd_tag');
+        return _geneCommon(html, /(&lt;)(.*?)(&gt;)/g, 'cd_tag', 'html');
     }
-    function _geneNumber (html) {
-        return _geneCommon(html, /(\d+)/g, 'cd_num');
-    }
+    // function _geneNumber (html) {
+    //     return _geneCommon(html, /(\d+)/g, 'cd_num');
+    // }
     function _geneString (html) {
         return _geneCommon(html, /((")(.*?)("))|((')(.*?)('))/g, 'cd_str');
     }
-    function _geneNote (html) {
-        return _geneCommon(html, /((\/\/)(.*?)(\n))|((\/\*)((.|\n)*?)(\*\/))/g, 'cd_note');
-    }
+    // function _geneNote (html) {
+    //     return _geneCommon(html, /((\/\/)(.*?)(\n))|((\/\*)((.|\n)*?)(\*\/))/g, 'cd_note');
+    // }
     function _geneHtmlNote (html) {
         return _geneCommon(html, /(&lt;!--)((.|\n)*?)(--&gt;)/g, 'cd_note');
     }
-    function _geneCommon (html, reg, tag) {
+    function _geneCommon (html, reg, tag, type) {
         var arr = html.match(reg);
         if (arr != null) {
             arr.each(function (a, i) {
+                if (type === 'html') {
+                    a = _geneCommon(a, /(&lt;)|(&gt;)|(\/)/g, 'cd_attr_punc');
+                    a = _geneCommon(a, /( )(\S*?)(=)/g, 'cd_attr', 'attr');
+                }
+                if (type === 'attr') {
+                    a = a.replace('=', '<cd_attr_equal>=</cd_attr_equal>');
+                }
                 arr[i] = '<' + tag + '>' + a + '</' + tag + '>';
+                // if (type === 'html') {
+                //     a = _geneCommon(a, /(&gt;)(.*?)(&lt;\/)/g, 'cd_html_c');
+                // }
+                // arr[i] = a;
             });
             html = html.replaceAll(reg, arr);
         }

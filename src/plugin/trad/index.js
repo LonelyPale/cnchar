@@ -1,6 +1,9 @@
 var countDict = require( './stroke-count-fan.json');
 var orderDict = require( './stroke-order-fan.json');
 
+// 简-烦 一对多
+// https://blog.csdn.net/e15273/article/details/79954700
+
 var convert = require( './converter');
 let arg = {
     simple: 'simple', array: 'array', order: 'order' // 开启简单模式
