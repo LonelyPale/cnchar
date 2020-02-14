@@ -4,6 +4,11 @@ const trad = require('../src/plugin/trad');
 const poly = require('../src/plugin/poly');
 cnchar.use(order, trad, poly);
 
+let config = require('./test.config');
+
 const startTest = require('./test');
 
-startTest(cnchar);
+startTest({
+    config,
+    args: cnchar
+});

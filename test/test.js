@@ -1,4 +1,3 @@
-let config = require('./test.config');
 const chalk = require('chalk');
 
 function green (txt) {
@@ -39,7 +38,7 @@ function testSingle ({
     return res;
 };
 
-function main (argsConfig) {
+function main (config, argsConfig) {
     blue('Test start:');
     config.forEach((item) => {
         let result = testSingle(item, argsConfig);
@@ -75,8 +74,8 @@ function objectEqualBase (result, expect) {
     return equal;
 }
 
-function startTest (argsConfig) {
-    main(argsConfig);
+function startTest ({config, args}) {
+    main(config, args);
 }
 module.exports = startTest;
 // console.log(cnchar.stroke('一个', 'order'));
