@@ -49,3 +49,10 @@
 6. 加入 cnchar.strokeToWord 方法
 7. 加入 cnchar.spellInfo 方法，spellInfo.tones spellInfo.initials属性
 8. 仓库加入测试目录
+
+### 2.0.9
+1. 修复 多音词"致远任重" 中的 重 字拼音错误
+2. 增加 齉 字 [nàng 36]
+3. 无字默认读音修正
+4. 修改 13 个多音字的默认读音
+5. 增加 15 个多音词

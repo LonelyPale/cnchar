@@ -1,0 +1,72 @@
+<!-- <style>
+    .logo{
+        width:200px;
+        margin:10px; 
+        width:200px;
+        animation: rotateY 20s infinite linear;
+        -moz-animation: rotateY 20s infinite linear;	/* Firefox */
+        -webkit-animation: rotateY 20s infinite linear;	/* Safari 和 Chrome */
+        -o-animation: rotateY 20s infinite linear;
+    }
+    @keyframes rotateY{
+        from {transform: perspective(600px) rotateY(0deg);}
+        to {transform: perspective(600px) rotateY(360deg);}
+    }
+
+    @-moz-keyframes rotateY{
+        from {-moz-transform: perspective(600px) rotateY(0deg);}
+        to {-moz-transform: perspective(600px) rotateY(360deg);}
+    }
+
+    @-webkit-keyframes rotateY{
+        from {-webkit-transform: perspective(600px) rotateY(0deg);}
+        to {-webkit-transform: perspective(600px) rotateY(360deg);}
+    }
+
+    @-o-keyframes rotateY{
+        from {-o-transform: perspective(600px) rotateY(0deg);}
+        to {-o-transform: perspective(600px) rotateY(360deg);}
+    }
+    @media screen and (max-width: 620px) {
+        .logo{
+            width:120px;
+        }
+    }
+</style> -->
+<div class='title'>CnChar</div>
+<!-- <div class='text t-center'>
+    <img class='logo' src="i.png">
+</div> -->
+<div class='text indent'>
+    CnChar 是一款好用小巧、功能全面的汉字拼音笔画 js 库，适用于任何js运行环境（浏览器、nodejs、webpack、electron等）。
+</div>
+<div class='text indent'>
+    在本文档里，我们提供了一个在线调试的工具，您可以通过它<span class='link' jon='jump' data-route='/code'>在线试用CnChar<i class="icon icon-double-angle-right"></i></span>
+</div>
+<div class='text'>
+    CnChar 主要包含有以下功能：
+    <div class='list'>
+        <div class='link' jon='jump' data-route='/bind'>1. 获取 汉字拼音 ，支持首字母、大小写、数组分割、备选 多音字 等功能  <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/attr'>2. 支持 多音词 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/valid'>3. 支持 拼音音调 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/lang'>4. 获取汉字 笔画数 、支持数组分割 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/router'>5. 获取汉字 笔画顺序 、笔画详细名称、通过笔画顺序推出原汉字等 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/module'>6. 支持 简体字 、 繁体字 、 火星文 互转 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/css'>7. 支持 查找 某拼音的所有 汉字 ，繁体字，多音字 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/tool'>8. 支持 查找 指定笔画数的所有 汉字 ，繁体字 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/jui'>9. 支持 查询拼音的信息，包含声母、韵母、音调、音调位置的等 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/lib'>10. 支持 繁体字 拼音、笔画数及以上所有功能，实现和简体字一样的功能 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/lib'>11. 体积小，min 版本仅 46 kb，zip 版本 34 kb (含有大量汉字拼音字典) <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/lib'>12. 多端可用，可用于 原生浏览器、webpack 、nodejs...，几乎支持所有 js 能运行的环境 <i class="icon icon-double-angle-right"></i></div>
+        <div class='link' jon='jump' data-route='/lib'>13. 丰富的配置，按需取用 <i class="icon icon-double-angle-right"></i></div>
+    </div>
+</div>
+<script>
+    JET({
+        func:{
+            jump:function(opt){
+                Jet.router.route(opt.ele.attr('data-route'))
+            }
+        }
+    })
+</script>
