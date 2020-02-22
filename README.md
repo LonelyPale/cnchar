@@ -14,7 +14,7 @@
 
 ### 前言
 
-感谢同学们对于 cnchar 的支持，由于 cnchar 词库来源于网络，虽然经过了本人的修改的扩充，但是还是难免有错误与缺漏之处，希望大家可以将使用中发现的错误与缺漏之处 [反馈](https://github.com/theajack/cnchar/issues/8) 给我（或自行修改提交，经过审查无误过后会合到 cnchar 中）
+感谢同学们对于 cnchar 的支持，由于 cnchar 词库来源于网络，虽然经过了本人的修改和扩充，但是还是难免有错误与缺漏之处，希望大家可以将使用中发现的错误与缺漏之处 [反馈](https://github.com/theajack/cnchar/issues/8) 给我（或自行修改提交，经过审查无误过后会合到 cnchar 中）
 
 [我要反馈错误或缺漏](https://github.com/theajack/cnchar/issues/8)
 
