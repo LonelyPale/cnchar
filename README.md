@@ -1,6 +1,14 @@
-# [cnchar](https://github.com/theajack/cnchar)
+# [cnchar](https://github.com/theajack/cnchar) <a href="https://www.github.com/theajack/cnchar"><img src="https://img.shields.io/github/stars/theajack/cnchar.svg?style=social" alt="star"></a> <a href="https://www.theajack.com"><img src="https://img.shields.io/badge/author-theajack-blue.svg?style=social" alt="Author"></a>
 
-#### [theajack](https://www.theajack.com/)
+
+<p>
+    <a href="https://www.npmjs.com/package/cnchar"><img src="https://img.shields.io/npm/v/cnchar.svg" alt="Version"></a>
+    <a href="https://npmcharts.com/compare/cnchar?minimal=true"><img src="https://img.shields.io/npm/dm/cnchar.svg" alt="Downloads"></a>
+    <a href="https://www.github.com/theajack/cnchar"><img src="https://img.shields.io/bundlephobia/minzip/cnchar.svg" alt="Size"></a>
+    <a href="https://www.npmjs.com/package/cnchar"><img src="https://img.shields.io/npm/l/cnchar.svg" alt="License"></a>
+    <a href="https://www.npmjs.com/package/cnchar"><img src="https://img.shields.io/github/languages/top/theajack/cnchar.svg" alt="TopLang"></a>
+<!--     <a href="https://www.github.com/theajack/cnchar"><img src="https://img.shields.io/librariesio/dependent-repos/npm/cnchar.svg" alt="Dependent"></a> -->
+</p>
 
 ### 🚀 好用小巧、功能全面的汉字拼音笔画 js 库
 
