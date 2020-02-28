@@ -116,7 +116,7 @@ npm i cnchar-all
 
 ### 4 使用
 
-#### 4.1 webpack、babel 等浏览器环境
+#### 4.1 webpack浏览器环境(有window对象)
 
 npm 安装好几个库之后：
 
