@@ -70,7 +70,7 @@ import cnchar from 'cnchar';
 9. 支持 **查询拼音的信息**，包含声母、韵母、音调、音调位置的等
 10. 支持 **繁体字** 拼音、笔画数及以上所有功能，实现和简体字一样的功能
 11. **体积小**，min 版本仅 46 kb，zip 版本 34 kb (含有大量汉字拼音字典)
-12. **多端可用**，可用于 原生浏览器、nodejs、小程序/小游戏、ReactNative/Weex/Uniapp/Electron、webpack...，支持所有 js 能运行的环境
+12. **多端可用**，可用于 **浏览器、nodejs、小程序/小游戏、ReactNative/Weex/Uniapp/Electron、webpack**...，支持所有 js 能运行的环境
 13. **typescript支持**，支持在typescript中调用
 14. 丰富的配置，按需取用
 
